@@ -1,14 +1,22 @@
 import { cn } from '@/lib/utils'
+import React from 'react'
 
 type Props = {
   isBot: boolean
-  message: string
+  message: string | React.ReactNode
 }
 
+/**
+ * Represents a message component.
+ * @param {Object} props - The component props.
+ * @param {boolean} props.isBot - Indicates whether the message is from a bot.
+ * @param {string} props.message - The content of the message.
+ *
+ */
 const Message = ({ isBot, message }: Props) => {
   return (
     <div
-      className={cn('flex items-center justify-end pl-14', {
+      className={cn('flex justify-end pl-14 min-h-10', {
         'justify-start pr-8 pl-0': isBot,
       })}
       data-is-bot={isBot}

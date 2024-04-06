@@ -1,5 +1,9 @@
 import { RefreshCcw } from 'lucide-react'
 
+/**
+ * Represents the header component of the chatbox.
+ *
+ */
 const Header = () => {
   return (
     <header className='h-14 flex items-center rounded-t-md bg-primary select-none'>
