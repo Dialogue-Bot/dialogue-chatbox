@@ -3,13 +3,14 @@ import million from 'million/compiler'
 import path from 'path'
 import { defineConfig } from 'vite'
 import tsconfigPaths from 'vite-tsconfig-paths'
+
 export default defineConfig({
-  plugins: [million.vite({ auto: true }), react(), tsconfigPaths()],
   build: {
     lib: {
-      entry: path.resolve(__dirname, 'src/chatbox.tsx'),
-      name: 'My Component',
+      entry: path.resolve(__dirname, 'src/chatbox/index.tsx'),
+      name: 'ChatBox',
       fileName: (format) => `chatbox.${format}.js`,
+      formats: ['es', 'umd'],
     },
     rollupOptions: {
       external: ['react', 'react-dom'],
@@ -21,4 +22,5 @@ export default defineConfig({
       },
     },
   },
+  plugins: [million.vite({ auto: true }), react(), tsconfigPaths()],
 })

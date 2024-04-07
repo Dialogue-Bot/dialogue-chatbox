@@ -1,5 +1,5 @@
-import { Body, Header, SendArea } from './components'
-import { Props, SocketProvider } from './context/socket.ctx'
+import { Body, Header, SendArea } from '../components'
+import { Props, SocketProvider } from '../context/socket.ctx'
 
 /**
  * Represents the ChatBox component.

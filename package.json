@@ -1,11 +1,12 @@
 {
   "name": "dialogue-chatbox",
   "private": false,
-  "version": "1.0.2",
+  "version": "1.0.3",
   "type": "module",
   "files": [
     "dist-components"
   ],
+  "types": "",
   "main": "dist-components/chatbox.umd.js",
   "module": "dist-components/chatbox.esm.js",
   "exports": {
@@ -56,6 +57,7 @@
     "tailwindcss": "^3.4.3",
     "typescript": "^5.2.2",
     "vite": "^5.2.0",
+    "vite-plugin-dts": "^3.8.1",
     "vite-tsconfig-paths": "^4.3.2"
   }
 }
