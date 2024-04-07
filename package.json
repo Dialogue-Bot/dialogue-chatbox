@@ -1,20 +1,14 @@
 {
   "name": "dialogue-chatbox",
   "private": false,
-  "version": "1.0.3",
+  "version": "1.0.4",
   "type": "module",
   "files": [
     "dist-components"
   ],
-  "types": "",
-  "main": "dist-components/chatbox.umd.js",
-  "module": "dist-components/chatbox.esm.js",
-  "exports": {
-    ".": {
-      "import": "./dist-components/chatbox.esm.js",
-      "require": "./dist-components/chatbox.umd.js"
-    }
-  },
+  "main": "dist-components/index.umd.js",
+  "module": "dist-components/index.es.js",
+  "types": "dist-components/index.d.ts",
   "scripts": {
     "dev": "vite",
     "build-web": "tsc && vite build",
