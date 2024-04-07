@@ -3,11 +3,14 @@ import { genId } from '@/utils'
 import { createContext, useEffect, useRef, useState } from 'react'
 import { Socket, io } from 'socket.io-client'
 import { useUnmount } from 'usehooks-ts'
+
 export type TSocketCtx = {
   socket: Socket
   messages: any[]
   setMessages: React.Dispatch<React.SetStateAction<any[]>>
   isTyping: boolean
+  channelId: string
+  onEndBot?: () => void
 }
 
 export const SocketCtx = createContext<TSocketCtx>({} as TSocketCtx)
@@ -17,9 +20,17 @@ const URL = import.meta.env.DEV
   ? 'http://localhost:8080'
   : 'https://api.example.com'
 
-export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
+export type Props = {
+  children: React.ReactNode
+  channelId?: string
+  onEndBot?: () => void
+}
+
+export const SocketProvider = ({ children, channelId, onEndBot }: Props) => {
   const [messages, setMessages] = useState<any[]>([])
   const [isTyping, setIsTyping] = useState<boolean>(false)
+  const urlParams = new URLSearchParams(window.location.search)
+
   const socketRef = useRef<Socket>(
     io(URL, {
       autoConnect: false,
@@ -69,6 +80,8 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
         messages,
         setMessages,
         isTyping,
+        channelId: channelId || urlParams.get('channelId') || '',
+        onEndBot,
       }}
     >
       {children}

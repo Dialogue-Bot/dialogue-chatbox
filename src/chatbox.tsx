@@ -1,14 +1,10 @@
 import { Body, Header, SendArea } from './components'
-import { SocketProvider } from './context/socket.ctx'
+import { Props, SocketProvider } from './context/socket.ctx'
 
 /**
  * Represents the ChatBox component.
  * This component displays a chat box with a header, body, and send area.
  */
-
-type Prop = {
-  channelId?: string;
-}
 
 const ChatBox = () => {
   return (
@@ -29,9 +25,9 @@ const ChatBox = () => {
  *
  * @returns The rendered chat box wrapped in a SocketProvider.
  */
-const ChatBoxWrapper = () => {
+const ChatBoxWrapper = (props: Omit<Props, 'children'>) => {
   return (
-    <SocketProvider>
+    <SocketProvider {...props}>
       <ChatBox />
     </SocketProvider>
   )
