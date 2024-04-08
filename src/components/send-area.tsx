@@ -20,9 +20,13 @@ const SendArea = () => {
     const trimmedMessage = message.trim()
     if (trimmedMessage.length === 0) return
 
+    const address = getAddress(channelId)
+
+    console.log('Sending message:', trimmedMessage, 'to:', address)
+
     socket.emit(EVENTS_SOCKET.MESSAGE, {
       message: trimmedMessage,
-      address: getAddress(channelId),
+      address,
     })
 
     setMessages((prev) => {

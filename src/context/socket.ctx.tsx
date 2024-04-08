@@ -23,6 +23,7 @@ export type Props = {
   children: React.ReactNode
   channelId?: string
   onEndBot?: () => void
+  className?: string
 }
 
 export const SocketProvider = ({ children, channelId, onEndBot }: Props) => {
