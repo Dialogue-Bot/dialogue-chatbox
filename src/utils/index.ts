@@ -1,3 +1,4 @@
+import { USER_ID_KEY } from '@/constants'
 import { createId } from '@paralleldrive/cuid2'
 
 /**
@@ -9,10 +10,10 @@ import { createId } from '@paralleldrive/cuid2'
 export const genId = () => {
   const generatedId = createId()
 
-  const userIdFromLocalStorage = localStorage.getItem('userId')
+  const userIdFromLocalStorage = localStorage.getItem(USER_ID_KEY)
 
   if (!userIdFromLocalStorage) {
-    localStorage.setItem('userId', generatedId)
+    localStorage.setItem(USER_ID_KEY, generatedId)
 
     return generatedId
   }

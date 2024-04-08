@@ -15,10 +15,9 @@ export type TSocketCtx = {
 
 export const SocketCtx = createContext<TSocketCtx>({} as TSocketCtx)
 
-// TODO: Replace this url when deploy
 const URL = import.meta.env.DEV
   ? 'http://localhost:8080'
-  : 'https://api.example.com'
+  : 'http://localhost:8080'
 
 export type Props = {
   children: React.ReactNode
@@ -68,6 +67,8 @@ export const SocketProvider = ({ children, channelId, onEndBot }: Props) => {
       socket.disconnect()
     }
   }, [])
+
+  console.log(channelId || urlParams.get('channelId') || '')
 
   useUnmount(() => {
     socketRef.current.disconnect()
