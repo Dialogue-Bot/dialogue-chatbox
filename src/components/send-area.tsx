@@ -10,7 +10,7 @@ import { Input } from './ui/input'
  * Represents the send area component.
  */
 const SendArea = () => {
-  const { socket, setMessages, channelId } = useSocket()
+  const { socket, setMessages, channelId, isTest } = useSocket()
   const [message, setMessage] = useState('')
 
   /**
@@ -27,6 +27,7 @@ const SendArea = () => {
     socket.emit(EVENTS_SOCKET.MESSAGE, {
       message: trimmedMessage,
       address,
+      isTest,
     })
 
     setMessages((prev) => {

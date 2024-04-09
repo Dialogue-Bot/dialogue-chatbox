@@ -11,6 +11,7 @@ export type TSocketCtx = {
   isTyping: boolean
   channelId: string
   onEndBot?: () => void
+  isTest?: boolean
 }
 
 export const SocketCtx = createContext<TSocketCtx>({} as TSocketCtx)
@@ -24,9 +25,15 @@ export type Props = {
   channelId?: string
   onEndBot?: () => void
   className?: string
+  isTest?: boolean
 }
 
-export const SocketProvider = ({ children, channelId, onEndBot }: Props) => {
+export const SocketProvider = ({
+  children,
+  channelId,
+  onEndBot,
+  isTest,
+}: Props) => {
   const [messages, setMessages] = useState<any[]>([])
   const [isTyping, setIsTyping] = useState<boolean>(false)
   const urlParams = new URLSearchParams(window.location.search)
@@ -84,6 +91,7 @@ export const SocketProvider = ({ children, channelId, onEndBot }: Props) => {
         isTyping,
         channelId: channelId || urlParams.get('channelId') || '',
         onEndBot,
+        isTest,
       }}
     >
       {children}
