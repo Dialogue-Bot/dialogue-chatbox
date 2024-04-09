@@ -1,6 +1,4 @@
-import { EVENTS_SOCKET } from '@/constants'
 import { useSocket } from '@/hooks/useSocket'
-import { getAddress } from '@/utils'
 import { Send } from 'lucide-react'
 import { useState } from 'react'
 import { Button } from './ui/button'
@@ -10,37 +8,16 @@ import { Input } from './ui/input'
  * Represents the send area component.
  */
 const SendArea = () => {
-  const { socket, setMessages, channelId, isTest } = useSocket()
+  const { handleSendMessage } = useSocket()
   const [message, setMessage] = useState('')
-
-  /**
-   * Handles sending a message.
-   */
-  const handleSendMessage = () => {
-    const trimmedMessage = message.trim()
-    if (trimmedMessage.length === 0) return
-
-    const address = getAddress(channelId)
-
-    console.log('Sending message:', trimmedMessage, 'to:', address)
-
-    socket.emit(EVENTS_SOCKET.MESSAGE, {
-      message: trimmedMessage,
-      address,
-      isTest,
-    })
-
-    setMessages((prev) => {
-      return [...prev, { message: trimmedMessage, isBot: false }]
-    })
-
-    setMessage('')
-  }
 
   const handleEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       e.preventDefault()
-      handleSendMessage()
+      handleSendMessage({
+        message,
+        cb: () => setMessage(''),
+      })
     }
   }
 
@@ -53,7 +30,16 @@ const SendArea = () => {
         onChange={(e) => setMessage(e.target.value)}
         onKeyDown={handleEnter}
       />
-      <Button size='icon' className='flex-shrink-0' onClick={handleSendMessage}>
+      <Button
+        size='icon'
+        className='flex-shrink-0'
+        onClick={() => {
+          handleSendMessage({
+            message,
+            cb: () => setMessage(''),
+          })
+        }}
+      >
         <Send className='w-4 h-4' />
       </Button>
     </div>

@@ -86,6 +86,10 @@ div[data-is-bot='true'] + div[data-is-bot='true'] {
   margin-top: 1rem;
 }
 
+slot + div[data-buttons='true'] {
+  @apply mb-1;
+}
+
 ::-webkit-scrollbar {
   border: 2px solid #fff;
   width: 11px;

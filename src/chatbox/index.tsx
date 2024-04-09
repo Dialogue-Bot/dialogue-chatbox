@@ -9,7 +9,7 @@ import { Props, SocketProvider } from '../context/socket.ctx'
 
 const ChatBox = ({ className }: { className?: string }) => {
   return (
-    <div className={cn('h-[600px] w-96', className)}>
+    <div className={cn('h-[600px] w-96 select-none', className)}>
       <div className='flex flex-col shadow h-full rounded-md overflow-hidden'>
         <Header />
         <div className='flex-1 flex flex-col min-h-[1px]'>

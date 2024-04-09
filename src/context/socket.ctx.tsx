@@ -1,17 +1,24 @@
 import { EVENTS_SOCKET } from '@/constants'
-import { genId } from '@/utils'
+import { TMessage, TTemplateType } from '@/types/chatbox'
+import { genId, getAddress } from '@/utils'
 import { createContext, useEffect, useRef, useState } from 'react'
 import { Socket, io } from 'socket.io-client'
 import { useUnmount } from 'usehooks-ts'
 
 export type TSocketCtx = {
   socket: Socket
-  messages: any[]
+  messages: TMessage[]
   setMessages: React.Dispatch<React.SetStateAction<any[]>>
   isTyping: boolean
   channelId: string
   onEndBot?: () => void
   isTest?: boolean
+  handleSendMessage: (options: {
+    message: string
+    cb?: (data: TMessage) => void
+    type?: TTemplateType
+    extraData?: string
+  }) => void
 }
 
 export const SocketCtx = createContext<TSocketCtx>({} as TSocketCtx)
@@ -32,9 +39,9 @@ export const SocketProvider = ({
   children,
   channelId,
   onEndBot,
-  isTest,
+  isTest = false,
 }: Props) => {
-  const [messages, setMessages] = useState<any[]>([])
+  const [messages, setMessages] = useState<TMessage[]>([])
   const [isTyping, setIsTyping] = useState<boolean>(false)
   const urlParams = new URLSearchParams(window.location.search)
 
@@ -54,13 +61,7 @@ export const SocketProvider = ({
     socket.connect()
 
     socket.on(EVENTS_SOCKET.MESSAGE, (data) => {
-      setMessages((prev) => [
-        ...prev,
-        {
-          message: data.message,
-          isBot: true,
-        },
-      ])
+      setMessages((prev) => [...prev, data])
     })
 
     socket.on(EVENTS_SOCKET.TYPING, () => {
@@ -76,7 +77,40 @@ export const SocketProvider = ({
     }
   }, [])
 
-  console.log(channelId || urlParams.get('channelId') || '')
+  const handleSendMessage: TSocketCtx['handleSendMessage'] = ({
+    message,
+    cb,
+    extraData,
+    type,
+  }) => {
+    const trimmedMessage = message.trim()
+    if (trimmedMessage.length === 0) return
+
+    const _channelId = channelId || urlParams.get('channelId') || ''
+
+    const address = getAddress(_channelId)
+
+    console.log('Sending message:', trimmedMessage, 'to:', address)
+
+    const newMessage: TMessage = {
+      message: type === 'list-button' ? extraData || '' : trimmedMessage,
+      isBot: false,
+      userId: genId(),
+      template: {} as any,
+    }
+
+    socketRef.current.emit(EVENTS_SOCKET.MESSAGE, {
+      message: trimmedMessage,
+      address,
+      isTest,
+    })
+
+    setMessages((prev) => {
+      return [...prev, newMessage]
+    })
+
+    cb && cb(newMessage)
+  }
 
   useUnmount(() => {
     socketRef.current.disconnect()
@@ -92,6 +126,7 @@ export const SocketProvider = ({
         channelId: channelId || urlParams.get('channelId') || '',
         onEndBot,
         isTest,
+        handleSendMessage,
       }}
     >
       {children}

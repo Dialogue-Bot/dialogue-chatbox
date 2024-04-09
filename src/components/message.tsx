@@ -1,9 +1,10 @@
 import { cn } from '@/lib/utils'
-import React from 'react'
+import { TMessage } from '@/types/chatbox'
+import { genId } from '@/utils'
 
 type Props = {
-  isBot: boolean
-  message: string | React.ReactNode
+  message: TMessage
+  children?: React.ReactNode
 }
 
 /**
@@ -13,23 +14,29 @@ type Props = {
  * @param {string} props.message - The content of the message.
  *
  */
-const Message = ({ isBot, message }: Props) => {
+const Message = ({ message, children }: Props) => {
+  const isBot = message.isBot || message.userId !== genId()
+
   return (
     <div
-      className={cn('flex justify-end pl-14 min-h-10', {
+      className={cn('flex justify-end pl-14 min-h-9', {
         'justify-start pr-8 pl-0': isBot,
       })}
       data-is-bot={isBot}
     >
       <div
         className={cn(
-          'bg-primary p-2 rounded-md text-white flex items-center justify-end w-max',
+          'bg-primary rounded-md text-white flex items-center justify-end w-max p-2 max-w-72 text-wrap ',
           {
             'bg-muted text-neutral-900 justify-start': isBot,
           },
         )}
+        style={{
+          wordBreak: 'break-word',
+        }}
       >
-        {message}
+        {message.message}
+        {children}
       </div>
     </div>
   )

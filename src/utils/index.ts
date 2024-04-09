@@ -31,3 +31,7 @@ export const getAddress = (channelId: string) => {
 
   return `${channelId}_${userId}`
 }
+
+export const openInNewTab = (url: string) => {
+  window.open(url, '_blank')?.focus()
+}
