@@ -19,6 +19,7 @@ export type TSocketCtx = {
     type?: TTemplateType
     extraData?: string
   }) => void
+  handleClose: () => void
 }
 
 export const SocketCtx = createContext<TSocketCtx>({} as TSocketCtx)
@@ -33,6 +34,7 @@ export type Props = {
   onEndBot?: () => void
   className?: string
   isTest?: boolean
+  onClose?: () => void
 }
 
 export const SocketProvider = ({
@@ -40,6 +42,7 @@ export const SocketProvider = ({
   channelId,
   onEndBot,
   isTest = false,
+  onClose,
 }: Props) => {
   const [messages, setMessages] = useState<TMessage[]>([])
   const [isTyping, setIsTyping] = useState<boolean>(false)
@@ -112,6 +115,18 @@ export const SocketProvider = ({
     cb && cb(newMessage)
   }
 
+  const handleClose = () => {
+    if (window.parent) {
+      window.parent.postMessage(
+        {
+          type: 'TOGGLE_CHAT',
+        },
+        '*',
+      )
+    }
+    onClose?.()
+  }
+
   useUnmount(() => {
     socketRef.current.disconnect()
   })
@@ -127,6 +142,7 @@ export const SocketProvider = ({
         onEndBot,
         isTest,
         handleSendMessage,
+        handleClose,
       }}
     >
       {children}

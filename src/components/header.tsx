@@ -1,12 +1,14 @@
-import { RefreshCcw } from 'lucide-react'
+import { useSocket } from '@/hooks/useSocket'
+import { RefreshCcw, X } from 'lucide-react'
 
 /**
  * Represents the header component of the chatbox.
  *
  */
 const Header = () => {
+  const { handleClose } = useSocket()
   return (
-    <header className='h-14 flex items-center rounded-t-md bg-primary select-none'>
+    <header className='flex items-center bg-primary select-none'>
       <div className='flex items-center p-2 gap-2 justify-between w-full'>
         <div className='flex items-center p-2 gap-2'>
           <svg
@@ -27,8 +29,16 @@ const Header = () => {
           </svg>
           <span className='font-medium text-white'>DialogueBot</span>
         </div>
-        <div className='w-6 h-6 flex items-center justify-center cursor-pointer'>
-          <RefreshCcw className='w-4 h-4 text-white' />
+        <div className='flex items-center gap-3'>
+          <div className='w-6 h-6 flex items-center justify-center cursor-pointer'>
+            <RefreshCcw className='w-4 h-4 text-white' />
+          </div>
+          <div
+            className='w-6 h-6 flex items-center justify-center cursor-pointer'
+            onClick={handleClose}
+          >
+            <X className='w-4 h-4 text-white' />
+          </div>
         </div>
       </div>
     </header>
