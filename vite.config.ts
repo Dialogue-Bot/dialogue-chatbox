@@ -10,4 +10,7 @@ export default defineConfig({
   preview: {
     port: 5175,
   },
+  build: {
+    outDir: 'chatbox',
+  },
 })

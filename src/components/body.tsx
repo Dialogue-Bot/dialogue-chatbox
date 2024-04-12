@@ -1,7 +1,7 @@
 import { useSocket } from '@/hooks/useSocket'
 import { TMessage } from '@/types/chatbox'
 import dayjs from 'dayjs'
-import { useEffect, useRef } from 'react'
+import { Fragment, useEffect, useRef } from 'react'
 import ButtonsMessage from './buttons-message'
 import { CardsMessage } from './cards-message'
 import Message from './message'
@@ -47,7 +47,7 @@ const Body = () => {
         )}
         {messages.map((msg, index) => {
           return (
-            <>
+            <Fragment key={index}>
               {index > 0 &&
                 dayjs(msg.createdAt).diff(
                   dayjs(messages[index - 1].createdAt),
@@ -58,7 +58,7 @@ const Body = () => {
                   </div>
                 )}
               {renderMessage(msg, index)}
-            </>
+            </Fragment>
           )
         })}
         {isTyping && <TypingMessage />}

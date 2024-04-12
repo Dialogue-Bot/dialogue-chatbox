@@ -8,6 +8,7 @@ export const TypingMessage = () => {
         message: '',
         template: {} as any,
         userId: 'typing',
+        createdAt: new Date().toISOString(),
       }}
       children={
         <div className='flex space-x-1 h-full flex-1 items-center'>
