@@ -1,4 +1,6 @@
 import { useSocket } from '@/hooks/useSocket'
+import { TMessage } from '@/types/chatbox'
+import dayjs from 'dayjs'
 import { useEffect, useRef } from 'react'
 import ButtonsMessage from './buttons-message'
 import { CardsMessage } from './cards-message'
@@ -23,19 +25,41 @@ const Body = () => {
     endMessageRef.current.scrollIntoView({ behavior: 'smooth' })
   }, [messages])
 
+  const renderMessage = (msg: TMessage, index: number) => {
+    if (msg.template.type === 'list-button') {
+      return <ButtonsMessage key={`${msg.createdAt}+${index}`} message={msg} />
+    }
+
+    if (msg.template.type === 'list-card') {
+      return <CardsMessage key={`${msg.createdAt}+${index}`} message={msg} />
+    }
+
+    return <Message key={`${msg.createdAt}+${index}`} message={msg} />
+  }
+
   return (
     <div className='p-2 flex-1 pr-3 overflow-y-auto hf'>
       <div className='flex flex-col gap-1'>
+        {messages.length > 0 && (
+          <div className='text-center text-xs text-neutral-500 py-2'>
+            {dayjs(messages[0].createdAt).format('DD/MM/YYYY HH:mm')}
+          </div>
+        )}
         {messages.map((msg, index) => {
-          if (msg.template.type === 'list-button') {
-            return <ButtonsMessage key={index} message={msg} />
-          }
-
-          if (msg.template.type === 'list-card') {
-            return <CardsMessage key={index} message={msg} />
-          }
-
-          return <Message key={index} message={msg} />
+          return (
+            <>
+              {index > 0 &&
+                dayjs(msg.createdAt).diff(
+                  dayjs(messages[index - 1].createdAt),
+                  'minutes',
+                ) > 10 && (
+                  <div className='text-center text-xs text-neutral-500 py-2'>
+                    {dayjs(msg.createdAt).format('DD/MM/YYYY HH:mm')}
+                  </div>
+                )}
+              {renderMessage(msg, index)}
+            </>
+          )
         })}
         {isTyping && <TypingMessage />}
         <div ref={endMessageRef} />

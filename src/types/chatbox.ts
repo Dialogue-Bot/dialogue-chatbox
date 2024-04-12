@@ -24,6 +24,8 @@ export type TMessage<T = any> = {
   template: TTemplate<T>
   userId: string
   isBot: boolean
+  createdAt: string
+  isTest?: boolean
 }
 
 export type TButtonsMessage = TMessage<TButton>

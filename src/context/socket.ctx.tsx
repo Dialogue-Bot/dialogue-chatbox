@@ -100,12 +100,15 @@ export const SocketProvider = ({
       isBot: false,
       userId: genId(),
       template: {} as any,
+      createdAt: new Date().toISOString(),
+      isTest,
     }
 
     socketRef.current.emit(EVENTS_SOCKET.MESSAGE, {
       message: trimmedMessage,
       address,
       isTest,
+      createdAt: newMessage.createdAt,
     })
 
     setMessages((prev) => {
