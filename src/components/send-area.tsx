@@ -8,7 +8,7 @@ import { Input } from './ui/input'
  * Represents the send area component.
  */
 const SendArea = () => {
-  const { handleSendMessage } = useSocket()
+  const { handleSendMessage, disableInput } = useSocket()
   const [message, setMessage] = useState('')
 
   const handleEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -29,6 +29,7 @@ const SendArea = () => {
         value={message}
         onChange={(e) => setMessage(e.target.value)}
         onKeyDown={handleEnter}
+        disabled={disableInput}
       />
       <Button
         size='icon'
@@ -39,6 +40,7 @@ const SendArea = () => {
             cb: () => setMessage(''),
           })
         }}
+        disabled={disableInput}
       >
         <Send className='w-4 h-4' />
       </Button>

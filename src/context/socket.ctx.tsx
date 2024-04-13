@@ -20,6 +20,7 @@ export type TSocketCtx = {
     extraData?: string
   }) => void
   handleClose: () => void
+  disableInput?: boolean
 }
 
 export const SocketCtx = createContext<TSocketCtx>({} as TSocketCtx)
@@ -47,6 +48,7 @@ export const SocketProvider = ({
   const [messages, setMessages] = useState<TMessage[]>([])
   const [isTyping, setIsTyping] = useState<boolean>(false)
   const urlParams = new URLSearchParams(window.location.search)
+  const [disableInput, setDisableInput] = useState<boolean>(false)
 
   const socketRef = useRef<Socket>(
     io(URL, {
@@ -64,6 +66,12 @@ export const SocketProvider = ({
     socket.connect()
 
     socket.on(EVENTS_SOCKET.MESSAGE, (data) => {
+      if (data.template?.type === 'list-button') {
+        setDisableInput(true)
+      } else {
+        setDisableInput(false)
+      }
+
       setMessages((prev) => [...prev, data])
     })
 
@@ -146,6 +154,7 @@ export const SocketProvider = ({
         isTest,
         handleSendMessage,
         handleClose,
+        disableInput,
       }}
     >
       {children}
