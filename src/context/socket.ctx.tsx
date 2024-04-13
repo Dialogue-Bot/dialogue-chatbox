@@ -21,6 +21,7 @@ export type TSocketCtx = {
   }) => void
   handleClose: () => void
   disableInput?: boolean
+  isShowClose?: boolean
 }
 
 export const SocketCtx = createContext<TSocketCtx>({} as TSocketCtx)
@@ -36,6 +37,7 @@ export type Props = {
   className?: string
   isTest?: boolean
   onClose?: () => void
+  isShowClose?: boolean
 }
 
 export const SocketProvider = ({
@@ -44,6 +46,7 @@ export const SocketProvider = ({
   onEndBot,
   isTest = false,
   onClose,
+  isShowClose = true,
 }: Props) => {
   const [messages, setMessages] = useState<TMessage[]>([])
   const [isTyping, setIsTyping] = useState<boolean>(false)
@@ -155,6 +158,7 @@ export const SocketProvider = ({
         handleSendMessage,
         handleClose,
         disableInput,
+        isShowClose,
       }}
     >
       {children}

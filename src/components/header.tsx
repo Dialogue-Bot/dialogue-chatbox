@@ -6,7 +6,7 @@ import { RefreshCcw, X } from 'lucide-react'
  *
  */
 const Header = () => {
-  const { handleClose } = useSocket()
+  const { handleClose, isShowClose } = useSocket()
   return (
     <header className='flex items-center bg-primary select-none h-14'>
       <div className='flex items-center  px-2 gap-2 justify-between w-full'>
@@ -33,12 +33,14 @@ const Header = () => {
           <div className='w-6 h-6 flex items-center justify-center cursor-pointer'>
             <RefreshCcw className='w-4 h-4 text-white' />
           </div>
-          <div
-            className='w-6 h-6 flex items-center justify-center cursor-pointer'
-            onClick={handleClose}
-          >
-            <X className='w-4 h-4 text-white' />
-          </div>
+          {isShowClose && (
+            <div
+              className='w-6 h-6 flex items-center justify-center cursor-pointer'
+              onClick={handleClose}
+            >
+              <X className='w-4 h-4 text-white' />
+            </div>
+          )}
         </div>
       </div>
     </header>
