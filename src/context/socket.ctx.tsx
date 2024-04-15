@@ -32,6 +32,7 @@ export type TSocketCtx = {
   isLoadingMessages?: boolean
   isForLiveChat?: boolean
   userId?: string
+  handleReload: () => void
 }
 
 export const SocketCtx = createContext<TSocketCtx>({} as TSocketCtx)
@@ -194,6 +195,16 @@ export const SocketProvider = ({
     onClose?.()
   }, [onClose])
 
+  const handleReload = useCallback(() => {
+    socketRef.current.emit(EVENTS_SOCKET.MESSAGE, {
+      type: 'event',
+      typeName: 'endConversation',
+      address: getAddress(_channelId),
+      isTest,
+      message: '',
+    })
+  }, [_channelId, isTest])
+
   useUnmount(() => {
     socketRef.current.disconnect()
   })
@@ -214,6 +225,7 @@ export const SocketProvider = ({
         isLoadingMessages: isLoading,
         isForLiveChat,
         userId,
+        handleReload,
       }}
     >
       {children}

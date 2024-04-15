@@ -6,9 +6,9 @@ import { RefreshCcw, X } from 'lucide-react'
  *
  */
 const Header = () => {
-  const { handleClose, isShowClose } = useSocket()
+  const { handleClose, isShowClose, handleReload } = useSocket()
   return (
-    <header className='flex items-center bg-primary select-none h-14'>
+    <header className='flex items-center bg-primary select-none h-[3.75rem]'>
       <div className='flex items-center  px-2 gap-2 justify-between w-full'>
         <div className='flex items-center p-2 gap-2'>
           <svg
@@ -30,7 +30,10 @@ const Header = () => {
           <span className='font-medium text-white'>DialogueBot</span>
         </div>
         <div className='flex items-center gap-3'>
-          <div className='w-6 h-6 flex items-center justify-center cursor-pointer'>
+          <div
+            className='w-6 h-6 flex items-center justify-center cursor-pointer'
+            onClick={handleReload}
+          >
             <RefreshCcw className='w-4 h-4 text-white' />
           </div>
           {isShowClose && (

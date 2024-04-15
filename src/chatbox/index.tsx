@@ -12,8 +12,13 @@ const queryClient = new QueryClient()
 
 const ChatBox = ({ className }: { className?: string }) => {
   return (
-    <div className={cn('select-none w-full h-screen flex flex-col', className)}>
-      <div className='flex flex-col shadow h-full overflow-hidden w-full flex-1'>
+    <div
+      className={cn(
+        'select-none w-full h-screen flex flex-col shadow',
+        className,
+      )}
+    >
+      <div className='flex flex-col h-full overflow-hidden w-full flex-1'>
         <Header />
         <div className='flex-1 flex flex-col min-h-[1px]'>
           <Body />
