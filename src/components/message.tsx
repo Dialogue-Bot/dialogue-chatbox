@@ -1,3 +1,4 @@
+import { useSocket } from '@/hooks/useSocket'
 import { cn } from '@/lib/utils'
 import { TMessage } from '@/types/chatbox'
 import { genId } from '@/utils'
@@ -15,7 +16,12 @@ type Props = {
  *
  */
 const Message = ({ message, children }: Props) => {
-  const isBot = message.isBot || message.userId !== genId()
+  const { isForLiveChat, userId } = useSocket()
+  const isBot =
+    (message.isBot ||
+      message.userId !== genId() ||
+      message.userId !== userId) &&
+    !isForLiveChat
 
   return (
     <>

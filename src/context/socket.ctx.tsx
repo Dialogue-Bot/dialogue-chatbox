@@ -1,14 +1,21 @@
 import { EVENTS_SOCKET } from '@/constants'
 import { TMessage, TTemplateType } from '@/types/chatbox'
 import { genId, getAddress } from '@/utils'
-import { createContext, useEffect, useRef, useState } from 'react'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
+import {
+  createContext,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react'
 import { Socket, io } from 'socket.io-client'
 import { useUnmount } from 'usehooks-ts'
 
 export type TSocketCtx = {
   socket: Socket
   messages: TMessage[]
-  setMessages: React.Dispatch<React.SetStateAction<any[]>>
   isTyping: boolean
   channelId: string
   onEndBot?: () => void
@@ -22,6 +29,9 @@ export type TSocketCtx = {
   handleClose: () => void
   disableInput?: boolean
   isShowClose?: boolean
+  isLoadingMessages?: boolean
+  isForLiveChat?: boolean
+  userId?: string
 }
 
 export const SocketCtx = createContext<TSocketCtx>({} as TSocketCtx)
@@ -38,6 +48,8 @@ export type Props = {
   isTest?: boolean
   onClose?: () => void
   isShowClose?: boolean
+  isForLiveChat?: boolean
+  userId?: string
 }
 
 export const SocketProvider = ({
@@ -47,18 +59,53 @@ export const SocketProvider = ({
   isTest = false,
   onClose,
   isShowClose = true,
+  isForLiveChat = true,
+  userId,
 }: Props) => {
-  const [messages, setMessages] = useState<TMessage[]>([])
   const [isTyping, setIsTyping] = useState<boolean>(false)
-  const urlParams = new URLSearchParams(window.location.search)
   const [disableInput, setDisableInput] = useState<boolean>(false)
+
+  const queryClient = useQueryClient()
+
+  const urlParams = useMemo(
+    () => new URLSearchParams(window.location.search),
+    [],
+  )
+
+  const _channelId = channelId || urlParams.get('channelId') || ''
+
+  const { data: messages, isLoading } = useQuery({
+    queryKey: ['messages', _channelId, userId || genId()],
+    queryFn: async () => {
+      try {
+        console.log('Fetching messages...')
+        const res = await fetch(
+          `http://localhost:8080/api/conversation-live-chat/${
+            userId || genId()
+          }/${_channelId}`,
+        )
+
+        const json = await res.json()
+
+        const data = json.data
+
+        console.log('Data:', data)
+
+        return data as Array<any>
+      } catch (error) {
+        console.log('Error:', error)
+        return []
+      }
+    },
+    initialData: [],
+  })
 
   const socketRef = useRef<Socket>(
     io(URL, {
       autoConnect: false,
       transports: ['websocket'],
       query: {
-        userId: genId(),
+        userId: userId || genId(),
       },
     }),
   )
@@ -75,7 +122,13 @@ export const SocketProvider = ({
         setDisableInput(false)
       }
 
-      setMessages((prev) => [...prev, data])
+      queryClient.setQueryData(
+        ['messages', _channelId, userId || genId()],
+        (prev: Array<any>) => {
+          console.log(prev)
+          return [...prev, data]
+        },
+      )
     })
 
     socket.on(EVENTS_SOCKET.TYPING, () => {
@@ -89,47 +142,47 @@ export const SocketProvider = ({
     return () => {
       socket.disconnect()
     }
-  }, [])
+  }, [_channelId, queryClient, userId])
 
-  const handleSendMessage: TSocketCtx['handleSendMessage'] = ({
-    message,
-    cb,
-    extraData,
-    type,
-  }) => {
-    const trimmedMessage = message.trim()
-    if (trimmedMessage.length === 0) return
+  const handleSendMessage: TSocketCtx['handleSendMessage'] = useCallback(
+    ({ message, cb, extraData, type }) => {
+      const trimmedMessage = message.trim()
+      if (trimmedMessage.length === 0) return
 
-    const _channelId = channelId || urlParams.get('channelId') || ''
+      const _channelId = channelId || urlParams.get('channelId') || ''
 
-    const address = getAddress(_channelId)
+      const address = getAddress(_channelId)
 
-    console.log('Sending message:', trimmedMessage, 'to:', address)
+      console.log('Sending message:', trimmedMessage, 'to:', address)
 
-    const newMessage: TMessage = {
-      message: type === 'list-button' ? extraData || '' : trimmedMessage,
-      isBot: false,
-      userId: genId(),
-      template: {} as any,
-      createdAt: new Date().toISOString(),
-      isTest,
-    }
+      const newMessage: TMessage = {
+        message: type === 'list-button' ? extraData || '' : trimmedMessage,
+        userId: userId || genId(),
+        template: {} as any,
+        createdAt: new Date().toISOString(),
+        isTest,
+      }
 
-    socketRef.current.emit(EVENTS_SOCKET.MESSAGE, {
-      message: trimmedMessage,
-      address,
-      isTest,
-      createdAt: newMessage.createdAt,
-    })
+      socketRef.current.emit(EVENTS_SOCKET.MESSAGE, {
+        message: trimmedMessage,
+        address,
+        isTest,
+        createdAt: newMessage.createdAt,
+      })
 
-    setMessages((prev) => {
-      return [...prev, newMessage]
-    })
+      queryClient.setQueryData(
+        ['messages', _channelId, userId || genId()],
+        (prev: Array<any>) => {
+          return [...prev, newMessage]
+        },
+      )
 
-    cb && cb(newMessage)
-  }
+      cb && cb(newMessage)
+    },
+    [channelId, isTest, queryClient, urlParams, userId],
+  )
 
-  const handleClose = () => {
+  const handleClose = useCallback(() => {
     if (window.parent) {
       window.parent.postMessage(
         {
@@ -139,7 +192,7 @@ export const SocketProvider = ({
       )
     }
     onClose?.()
-  }
+  }, [onClose])
 
   useUnmount(() => {
     socketRef.current.disconnect()
@@ -150,15 +203,17 @@ export const SocketProvider = ({
       value={{
         socket: socketRef.current,
         messages,
-        setMessages,
         isTyping,
-        channelId: channelId || urlParams.get('channelId') || '',
+        channelId: _channelId,
         onEndBot,
         isTest,
         handleSendMessage,
         handleClose,
         disableInput,
         isShowClose,
+        isLoadingMessages: isLoading,
+        isForLiveChat,
+        userId,
       }}
     >
       {children}

@@ -23,7 +23,7 @@ export type TMessage<T = any> = {
   message: string
   template: TTemplate<T>
   userId: string
-  isBot: boolean
+  isBot?: boolean
   createdAt: string
   isTest?: boolean
 }

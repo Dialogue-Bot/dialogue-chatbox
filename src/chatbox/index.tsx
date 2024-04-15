@@ -1,6 +1,9 @@
 import { cn } from '@/lib/utils'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { Body, Header, SendArea } from '../components'
 import { Props, SocketProvider } from '../context/socket.ctx'
+
+const queryClient = new QueryClient()
 
 /**
  * Represents the ChatBox component.
@@ -28,9 +31,11 @@ const ChatBox = ({ className }: { className?: string }) => {
  */
 const ChatBoxWrapper = (props: Omit<Props, 'children'>) => {
   return (
-    <SocketProvider {...props}>
-      <ChatBox className={props.className} />
-    </SocketProvider>
+    <QueryClientProvider client={queryClient}>
+      <SocketProvider {...props}>
+        <ChatBox className={props.className} />
+      </SocketProvider>
+    </QueryClientProvider>
   )
 }
 
