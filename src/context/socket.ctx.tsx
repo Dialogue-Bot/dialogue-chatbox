@@ -16,7 +16,6 @@ import { useUnmount } from 'usehooks-ts'
 export type TSocketCtx = {
   socket: Socket
   messages: TMessage[]
-  isTyping: boolean
   channelId: string
   onEndBot?: () => void
   isTest?: boolean
@@ -60,10 +59,9 @@ export const SocketProvider = ({
   isTest = false,
   onClose,
   isShowClose = true,
-  isForLiveChat = true,
+  isForLiveChat,
   userId,
 }: Props) => {
-  const [isTyping, setIsTyping] = useState<boolean>(false)
   const [disableInput, setDisableInput] = useState<boolean>(false)
 
   const queryClient = useQueryClient()
@@ -126,18 +124,27 @@ export const SocketProvider = ({
       queryClient.setQueryData(
         ['messages', _channelId, userId || genId()],
         (prev: Array<any>) => {
-          console.log(prev)
           return [...prev, data]
         },
       )
     })
 
     socket.on(EVENTS_SOCKET.TYPING, () => {
-      setIsTyping(true)
+      queryClient.setQueryData(
+        ['messages', _channelId, userId || genId()],
+        (prev: Array<any>) => {
+          return [...prev, { userId: 'typing' }]
+        },
+      )
     })
 
     socket.on(EVENTS_SOCKET.STOP_TYPING, () => {
-      setIsTyping(false)
+      queryClient.setQueryData(
+        ['messages', _channelId, userId || genId()],
+        (prev: Array<any>) => {
+          return prev.filter((msg) => msg.userId !== 'typing')
+        },
+      )
     })
 
     return () => {
@@ -203,7 +210,13 @@ export const SocketProvider = ({
       isTest,
       message: '',
     })
-  }, [_channelId, isTest])
+    queryClient.setQueryData(
+      ['messages', _channelId, userId || genId()],
+      () => {
+        return []
+      },
+    )
+  }, [_channelId, isTest, queryClient, userId])
 
   useUnmount(() => {
     socketRef.current.disconnect()
@@ -214,7 +227,6 @@ export const SocketProvider = ({
       value={{
         socket: socketRef.current,
         messages,
-        isTyping,
         channelId: _channelId,
         onEndBot,
         isTest,

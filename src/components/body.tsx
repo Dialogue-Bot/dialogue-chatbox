@@ -15,7 +15,7 @@ import TypingMessage from './typing-message'
 
 const Body = () => {
   const endMessageRef = useRef<HTMLDivElement>(null)
-  const { messages, isTyping, isLoadingMessages } = useSocket()
+  const { messages, isLoadingMessages } = useSocket()
 
   /**
    * Scrolls to the end of the messages when a new message is received.
@@ -27,6 +27,10 @@ const Body = () => {
   }, [messages])
 
   const renderMessage = (msg: TMessage, index: number) => {
+    if (msg.userId === 'typing') {
+      return <TypingMessage />
+    }
+
     if (msg.template.type === 'list-button') {
       return <ButtonsMessage key={`${msg.createdAt}+${index}`} message={msg} />
     }
@@ -67,7 +71,7 @@ const Body = () => {
               </Fragment>
             )
           })}
-          {isTyping && <TypingMessage />}
+
           <div ref={endMessageRef} />
         </div>
       )}

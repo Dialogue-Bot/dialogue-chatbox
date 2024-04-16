@@ -16,26 +16,22 @@ type Props = {
  *
  */
 const Message = ({ message, children }: Props) => {
-  const { isForLiveChat, userId } = useSocket()
-  const isBot =
-    (message.isBot ||
-      message.userId !== genId() ||
-      message.userId !== userId) &&
-    !isForLiveChat
+  const { isForLiveChat } = useSocket()
+
+  const isLeft = message.isBot || message.userId !== genId() || isForLiveChat
 
   return (
     <>
       <div
         className={cn('flex justify-end pl-14 min-h-9', {
-          'justify-start pr-8 pl-0': isBot,
+          'justify-start pr-8 pl-0': isLeft,
         })}
-        data-is-bot={isBot}
       >
         <div
           className={cn(
             'bg-primary rounded-md text-white flex items-center justify-end w-max p-2 max-w-72 text-wrap ',
             {
-              'bg-muted text-neutral-900 justify-start': isBot,
+              'bg-muted text-neutral-900 justify-start': isLeft,
             },
           )}
           style={{
