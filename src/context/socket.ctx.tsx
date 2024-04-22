@@ -210,6 +210,7 @@ export const SocketProvider = ({
       isTest,
       message: '',
     })
+    setDisableInput(false)
     queryClient.setQueryData(
       ['messages', _channelId, userId || genId()],
       () => {
