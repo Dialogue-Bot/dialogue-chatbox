@@ -1,3 +1,4 @@
+import { useSocket } from '@/hooks/useSocket'
 import { cn } from '@/lib/utils'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { Body, Header, SendArea } from '../components'
@@ -11,12 +12,18 @@ const queryClient = new QueryClient()
  */
 
 const ChatBox = ({ className }: { className?: string }) => {
+  const { customStyles } = useSocket()
+
   return (
     <div
       className={cn(
         'select-none w-full h-screen flex flex-col shadow',
         className,
       )}
+      style={{
+        width: customStyles?.windowSize.width,
+        height: customStyles?.windowSize.height,
+      }}
     >
       <div className='flex flex-col h-full overflow-hidden w-full flex-1'>
         <Header />

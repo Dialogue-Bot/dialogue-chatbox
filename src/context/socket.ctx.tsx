@@ -32,6 +32,20 @@ export type TSocketCtx = {
   isForLiveChat?: boolean
   userId?: string
   handleReload: () => void
+  customStyles?: {
+    color: string
+    buttonSize: number
+    position: {
+      y: number
+      x: number
+    }
+    windowSize: {
+      width: number
+      height: number
+    }
+    logoUrl?: string | undefined
+    name?: string | undefined
+  }
 }
 
 export const SocketCtx = createContext<TSocketCtx>({} as TSocketCtx)
@@ -50,6 +64,21 @@ export type Props = {
   isShowClose?: boolean
   isForLiveChat?: boolean
   userId?: string
+  customStyles?: {
+    color: string
+    buttonSize: number
+    position: {
+      y: number
+      x: number
+    }
+    windowSize: {
+      width: number
+      height: number
+    }
+    logoUrl?: string | undefined
+    name?: string | undefined
+  }
+  isForPreview?: boolean
 }
 
 export const SocketProvider = ({
@@ -61,8 +90,11 @@ export const SocketProvider = ({
   isShowClose = true,
   isForLiveChat,
   userId,
+  customStyles: _customStyles,
+  isForPreview,
 }: Props) => {
   const [disableInput, setDisableInput] = useState<boolean>(false)
+  const [customStyles, setCustomStyles] = useState(_customStyles)
 
   const queryClient = useQueryClient()
 
@@ -77,7 +109,10 @@ export const SocketProvider = ({
     queryKey: ['messages', _channelId, userId || genId()],
     queryFn: async () => {
       try {
-        console.log('Fetching messages...')
+        if (isForPreview) {
+          return [{}]
+        }
+
         const res = await fetch(
           `http://localhost:8080/api/conversation-live-chat/${
             userId || genId()
@@ -88,11 +123,8 @@ export const SocketProvider = ({
 
         const data = json.data
 
-        console.log('Data:', data)
-
         return data as Array<any>
       } catch (error) {
-        console.log('Error:', error)
         return []
       }
     },
@@ -110,6 +142,9 @@ export const SocketProvider = ({
   )
 
   useEffect(() => {
+    // if customStyles is set, don't connect to socket because it for preview
+    if (isForPreview) return
+
     const socket = socketRef.current
 
     socket.connect()
@@ -150,7 +185,7 @@ export const SocketProvider = ({
     return () => {
       socket.disconnect()
     }
-  }, [_channelId, queryClient, userId])
+  }, [_channelId, queryClient, userId, isForPreview])
 
   const handleSendMessage: TSocketCtx['handleSendMessage'] = useCallback(
     ({ message, cb, extraData, type }) => {
@@ -223,6 +258,22 @@ export const SocketProvider = ({
     socketRef.current.disconnect()
   })
 
+  useEffect(() => {
+    window.addEventListener('message', (ev) => {
+      console.log('Received message:', ev.data)
+
+      if (ev.data.type === 'CUSTOM_STYLES') {
+        setCustomStyles(ev.data)
+      }
+    })
+  }, [])
+
+  useEffect(() => {
+    if (isForPreview) {
+      setDisableInput(true)
+    }
+  }, [isForPreview])
+
   return (
     <SocketCtx.Provider
       value={{
@@ -239,6 +290,7 @@ export const SocketProvider = ({
         isForLiveChat,
         userId,
         handleReload,
+        customStyles,
       }}
     >
       {children}

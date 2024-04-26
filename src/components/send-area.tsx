@@ -1,4 +1,5 @@
 import { useSocket } from '@/hooks/useSocket'
+import { hexToHSL } from '@/utils'
 import { Send } from 'lucide-react'
 import { useState } from 'react'
 import { Button } from './ui/button'
@@ -8,7 +9,7 @@ import { Input } from './ui/input'
  * Represents the send area component.
  */
 const SendArea = () => {
-  const { handleSendMessage, disableInput } = useSocket()
+  const { handleSendMessage, disableInput, customStyles } = useSocket()
   const [message, setMessage] = useState('')
 
   const handleEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -21,6 +22,8 @@ const SendArea = () => {
     }
   }
 
+  const hsl = customStyles?.color ? hexToHSL(customStyles.color) : null
+
   return (
     <div className='flex items-center py-2 px-3 gap-2 border-input border-t'>
       <Input
@@ -30,6 +33,11 @@ const SendArea = () => {
         onChange={(e) => setMessage(e.target.value)}
         onKeyDown={handleEnter}
         disabled={disableInput}
+        style={
+          {
+            '--primary': hsl ? `${hsl.h} ${hsl.s}% ${hsl.l}%` : undefined,
+          } as React.CSSProperties
+        }
       />
       <Button
         size='icon'
@@ -41,6 +49,13 @@ const SendArea = () => {
           })
         }}
         disabled={disableInput}
+        style={
+          {
+            width: customStyles?.buttonSize,
+            height: customStyles?.buttonSize,
+            '--primary': hsl ? `${hsl.h} ${hsl.s}% ${hsl.l}%` : undefined,
+          } as React.CSSProperties
+        }
       >
         <Send className='w-4 h-4' />
       </Button>

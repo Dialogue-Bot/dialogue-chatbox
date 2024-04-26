@@ -16,7 +16,7 @@ type Props = {
  *
  */
 const Message = ({ message, children }: Props) => {
-  const { isForLiveChat } = useSocket()
+  const { isForLiveChat, customStyles } = useSocket()
 
   const isLeft = message.isBot || message.userId !== genId() || isForLiveChat
 
@@ -36,6 +36,7 @@ const Message = ({ message, children }: Props) => {
           )}
           style={{
             wordBreak: 'break-word',
+            backgroundColor: customStyles?.color,
           }}
         >
           {message.message}

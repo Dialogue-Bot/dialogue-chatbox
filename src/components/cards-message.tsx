@@ -1,6 +1,6 @@
 import { useSocket } from '@/hooks/useSocket'
 import { TCard, TCardsMessage } from '@/types/chatbox'
-import { openInNewTab } from '@/utils'
+import { hexToHSL, openInNewTab } from '@/utils'
 import Message from './message'
 import { Button } from './ui/button'
 
@@ -9,7 +9,10 @@ type Props = {
 }
 
 const Card = ({ card }: { card: TCard }) => {
-  const { handleSendMessage } = useSocket()
+  const { handleSendMessage, customStyles } = useSocket()
+
+  const hsl = customStyles?.color ? hexToHSL(customStyles.color) : null
+
   return (
     <div className='w-full space-y-1 text-center'>
       <img
@@ -43,6 +46,13 @@ const Card = ({ card }: { card: TCard }) => {
                     openInNewTab(button.url)
                   }
                 }}
+                style={
+                  {
+                    '--primary': hsl
+                      ? `${hsl.h} ${hsl.s}% ${hsl.l}%`
+                      : undefined,
+                  } as React.CSSProperties
+                }
               >
                 {button.title}
               </Button>

@@ -1,6 +1,6 @@
 import { useSocket } from '@/hooks/useSocket'
 import { TButtonsMessage } from '@/types/chatbox'
-import { openInNewTab } from '@/utils'
+import { hexToHSL, openInNewTab } from '@/utils'
 import Message from './message'
 import { Button } from './ui/button'
 
@@ -9,7 +9,8 @@ type Props = {
 }
 
 const ButtonsMessage = ({ message }: Props) => {
-  const { handleSendMessage } = useSocket()
+  const { handleSendMessage, customStyles } = useSocket()
+  const hsl = customStyles?.color ? hexToHSL(customStyles.color) : null
   return (
     <div className='space-y-2' data-buttons={true}>
       <Message message={message} />
@@ -35,6 +36,11 @@ const ButtonsMessage = ({ message }: Props) => {
                   openInNewTab(button.url)
                 }
               }}
+              style={
+                {
+                  '--primary': hsl ? `${hsl.h} ${hsl.s}% ${hsl.l}%` : undefined,
+                } as React.CSSProperties
+              }
             >
               {button.title}
             </Button>
