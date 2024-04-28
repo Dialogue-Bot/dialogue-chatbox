@@ -51,8 +51,8 @@ export type TSocketCtx = {
 export const SocketCtx = createContext<TSocketCtx>({} as TSocketCtx)
 
 const URL = import.meta.env.DEV
-  ? 'http://localhost:8080'
-  : 'http://localhost:8080'
+  ? import.meta.env.VITE_DEV_API_URL
+  : import.meta.env.VITE_DEV_API_URL
 
 export type Props = {
   children: React.ReactNode
@@ -114,7 +114,7 @@ export const SocketProvider = ({
         }
 
         const res = await fetch(
-          `http://localhost:8080/api/conversation-live-chat/${
+          `${URL}/api/conversation-live-chat/${
             userId || genId()
           }/${_channelId}`,
         )
@@ -129,6 +129,24 @@ export const SocketProvider = ({
       }
     },
     initialData: [],
+  })
+
+  const { data: custom } = useQuery({
+    queryKey: ['custom-style', _channelId, userId || genId()],
+    queryFn: async () => {
+      try {
+        const res = await fetch(`${URL}/api/custom-chatbox/${_channelId}`)
+
+        const json = await res.json()
+
+        const data = json.data
+
+        return data as Record<string, any>
+      } catch (error) {
+        return undefined
+      }
+    },
+    enabled: !isTest && !isForPreview,
   })
 
   const socketRef = useRef<Socket>(
@@ -245,28 +263,20 @@ export const SocketProvider = ({
       isTest,
       message: '',
     })
-    setDisableInput(false)
+    if (!isForPreview) {
+      setDisableInput(false)
+    }
     queryClient.setQueryData(
       ['messages', _channelId, userId || genId()],
       () => {
         return []
       },
     )
-  }, [_channelId, isTest, queryClient, userId])
+  }, [_channelId, isForPreview, isTest, queryClient, userId])
 
   useUnmount(() => {
     socketRef.current.disconnect()
   })
-
-  useEffect(() => {
-    window.addEventListener('message', (ev) => {
-      console.log('Received message:', ev.data)
-
-      if (ev.data.type === 'CUSTOM_STYLES') {
-        setCustomStyles(ev.data)
-      }
-    })
-  }, [])
 
   useEffect(() => {
     if (isForPreview) {
@@ -275,10 +285,16 @@ export const SocketProvider = ({
   }, [isForPreview])
 
   useEffect(() => {
-    if (_customStyles) {
-      setCustomStyles(_customStyles)
+    if (custom) {
+      setCustomStyles(custom as any)
     }
-  }, [_customStyles])
+  }, [custom])
+
+  useEffect(() => {
+    if (_customStyles) {
+      setCustomStyles(customStyles)
+    }
+  }, [_customStyles, customStyles])
 
   return (
     <SocketCtx.Provider
