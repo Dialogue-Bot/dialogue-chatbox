@@ -114,13 +114,12 @@ export const SocketProvider = ({
             {
               isBot: true,
               message: 'Hello, how can I help you?',
-              userId: 'bot',
               createdAt: new Date().toISOString(),
             },
             {
               isBot: false,
-              messages: 'I want to know more about your product',
-              userId: 'user',
+              message: 'I want to know more about your product',
+              userId: genId(),
               createdAt: new Date().toISOString(),
             },
           ]
@@ -269,6 +268,8 @@ export const SocketProvider = ({
   }, [onClose])
 
   const handleReload = useCallback(() => {
+    if (isForPreview) return
+
     socketRef.current.emit(EVENTS_SOCKET.MESSAGE, {
       type: 'event',
       typeName: 'endConversation',
@@ -276,9 +277,8 @@ export const SocketProvider = ({
       isTest,
       message: '',
     })
-    if (!isForPreview) {
-      setDisableInput(false)
-    }
+    setDisableInput(false)
+
     queryClient.setQueryData(
       ['messages', _channelId, userId || genId()],
       () => {

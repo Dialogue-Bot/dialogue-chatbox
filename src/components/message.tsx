@@ -36,7 +36,7 @@ const Message = ({ message, children }: Props) => {
           )}
           style={{
             wordBreak: 'break-word',
-            backgroundColor: customStyles?.color,
+            backgroundColor: isLeft ? undefined : customStyles?.color,
           }}
         >
           {message.message}
