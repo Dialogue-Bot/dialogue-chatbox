@@ -110,7 +110,20 @@ export const SocketProvider = ({
     queryFn: async () => {
       try {
         if (isForPreview) {
-          return [{}]
+          return [
+            {
+              isBot: true,
+              message: 'Hello, how can I help you?',
+              userId: 'bot',
+              createdAt: new Date().toISOString(),
+            },
+            {
+              isBot: false,
+              messages: 'I want to know more about your product',
+              userId: 'user',
+              createdAt: new Date().toISOString(),
+            },
+          ]
         }
 
         const res = await fetch(
