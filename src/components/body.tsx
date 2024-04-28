@@ -27,15 +27,15 @@ const Body = () => {
   }, [messages])
 
   const renderMessage = (msg: TMessage, index: number) => {
-    if (msg.userId === 'typing') {
+    if (msg?.userId === 'typing') {
       return <TypingMessage />
     }
 
-    if (msg.template.type === 'list-button') {
+    if (msg?.template?.type === 'list-button') {
       return <ButtonsMessage key={`${msg.createdAt}+${index}`} message={msg} />
     }
 
-    if (msg.template.type === 'list-card') {
+    if (msg?.template?.type === 'list-card') {
       return <CardsMessage key={`${msg.createdAt}+${index}`} message={msg} />
     }
 
