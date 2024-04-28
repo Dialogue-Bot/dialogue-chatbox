@@ -20,7 +20,7 @@ const Header = () => {
             <img
               src={customStyles?.logoUrl}
               alt='logo'
-              className='w-10 h-10 rounded-full'
+              className='w-10 h-10 rounded-full overflow-hidden object-cover'
             />
           ) : (
             <svg

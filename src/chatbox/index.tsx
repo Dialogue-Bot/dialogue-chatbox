@@ -14,6 +14,8 @@ const queryClient = new QueryClient()
 const ChatBox = ({ className }: { className?: string }) => {
   const { customStyles } = useSocket()
 
+  console.log(customStyles)
+
   return (
     <div
       className={cn(

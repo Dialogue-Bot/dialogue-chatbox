@@ -51,8 +51,6 @@ const SendArea = () => {
         disabled={disableInput}
         style={
           {
-            width: customStyles?.buttonSize,
-            height: customStyles?.buttonSize,
             '--primary': hsl ? `${hsl.h} ${hsl.s}% ${hsl.l}%` : undefined,
           } as React.CSSProperties
         }

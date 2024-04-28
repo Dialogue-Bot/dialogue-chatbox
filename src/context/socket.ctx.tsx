@@ -274,6 +274,12 @@ export const SocketProvider = ({
     }
   }, [isForPreview])
 
+  useEffect(() => {
+    if (_customStyles) {
+      setCustomStyles(_customStyles)
+    }
+  }, [_customStyles])
+
   return (
     <SocketCtx.Provider
       value={{
