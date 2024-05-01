@@ -79,6 +79,7 @@ export type Props = {
     name?: string | undefined
   }
   isForPreview?: boolean
+  isForManager?: boolean
 }
 
 export const SocketProvider = ({
@@ -92,9 +93,12 @@ export const SocketProvider = ({
   userId,
   customStyles: _customStyles,
   isForPreview,
+  isForManager,
 }: Props) => {
   const [disableInput, setDisableInput] = useState<boolean>(false)
-  const [customStyles, setCustomStyles] = useState(_customStyles)
+  const [customStyles, setCustomStyles] = useState(
+    isForManager ? undefined : _customStyles,
+  )
 
   const queryClient = useQueryClient()
 
@@ -304,10 +308,10 @@ export const SocketProvider = ({
   }, [custom])
 
   useEffect(() => {
-    if (_customStyles) {
-      setCustomStyles(customStyles)
+    if (_customStyles && !isForManager) {
+      setCustomStyles(_customStyles)
     }
-  }, [_customStyles, customStyles])
+  }, [_customStyles, isForManager])
 
   return (
     <SocketCtx.Provider
