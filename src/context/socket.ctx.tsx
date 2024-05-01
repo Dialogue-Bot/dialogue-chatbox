@@ -302,10 +302,10 @@ export const SocketProvider = ({
   }, [isForPreview])
 
   useEffect(() => {
-    if (custom) {
+    if (custom && !isForManager) {
       setCustomStyles(custom as any)
     }
-  }, [custom])
+  }, [custom, isForManager])
 
   useEffect(() => {
     if (_customStyles && !isForManager) {
