@@ -80,6 +80,7 @@ export type Props = {
   }
   isForPreview?: boolean
   isForManager?: boolean
+  adminId?: string
 }
 
 export const SocketProvider = ({
@@ -94,6 +95,7 @@ export const SocketProvider = ({
   customStyles: _customStyles,
   isForPreview,
   isForManager,
+  adminId,
 }: Props) => {
   const [disableInput, setDisableInput] = useState<boolean>(false)
   const [customStyles, setCustomStyles] = useState(
@@ -162,7 +164,7 @@ export const SocketProvider = ({
         return undefined
       }
     },
-    enabled: !isTest && !isForPreview,
+    enabled: !isTest && !isForPreview && !isForManager,
   })
 
   const socketRef = useRef<Socket>(
@@ -230,11 +232,9 @@ export const SocketProvider = ({
 
       const address = getAddress(_channelId)
 
-      console.log('Sending message:', trimmedMessage, 'to:', address)
-
       const newMessage: TMessage = {
         message: type === 'list-button' ? extraData || '' : trimmedMessage,
-        userId: userId || genId(),
+        userId: adminId ? adminId : userId || genId(),
         template: {} as any,
         createdAt: new Date().toISOString(),
         isTest,

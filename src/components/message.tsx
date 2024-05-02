@@ -16,9 +16,9 @@ type Props = {
  *
  */
 const Message = ({ message, children }: Props) => {
-  const { isForLiveChat, customStyles } = useSocket()
+  const { customStyles } = useSocket()
 
-  const isLeft = message.isBot || message.userId !== genId() || isForLiveChat
+  const isLeft = message.isBot || message.userId !== genId()
 
   return (
     <>
