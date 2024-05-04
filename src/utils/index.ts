@@ -26,8 +26,8 @@ export const genId = () => {
  * @param channelId - The ID of the channel.
  * @returns The generated address.
  */
-export const getAddress = (channelId: string) => {
-  const userId = genId()
+export const getAddress = (channelId: string, incomeUserId?: string) => {
+  const userId = incomeUserId ? incomeUserId : genId()
 
   return `${channelId}_${userId}`
 }

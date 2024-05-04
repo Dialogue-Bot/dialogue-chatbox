@@ -16,14 +16,14 @@ type Props = {
  *
  */
 const Message = ({ message, children }: Props) => {
-  const { customStyles } = useSocket()
+  const { customStyles, adminId: _adminId } = useSocket()
 
   const isLeft = message.isBot || message.userId !== genId()
 
   return (
     <>
       <div
-        className={cn('flex justify-end pl-14 min-h-9', {
+        className={cn('flex min-h-9 justify-end pl-8', {
           'justify-start pr-8 pl-0': isLeft,
         })}
       >

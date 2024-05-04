@@ -46,6 +46,8 @@ export type TSocketCtx = {
     logoUrl?: string | undefined
     name?: string | undefined
   }
+  handleTyping?: () => void
+  adminId?: string
 }
 
 export const SocketCtx = createContext<TSocketCtx>({} as TSocketCtx)
@@ -101,6 +103,7 @@ export const SocketProvider = ({
   const [customStyles, setCustomStyles] = useState(
     isForManager ? undefined : _customStyles,
   )
+  const typingTimeoutRef = useRef<NodeJS.Timeout | null>(null)
 
   const queryClient = useQueryClient()
 
@@ -109,7 +112,21 @@ export const SocketProvider = ({
     [],
   )
 
-  const _channelId = channelId || urlParams.get('channelId') || ''
+  const _userId = useMemo(() => (userId ? userId : genId()), [userId])
+  const _channelId = useMemo(
+    () => channelId || urlParams.get('channelId') || '',
+    [channelId, urlParams],
+  )
+
+  const socketRef = useRef<Socket>(
+    io(URL, {
+      autoConnect: false,
+      transports: ['websocket'],
+      query: {
+        userId: adminId ? `${_userId}_${adminId}` : _userId,
+      },
+    }),
+  )
 
   const { data: messages, isLoading } = useQuery({
     queryKey: ['messages', _channelId, userId || genId()],
@@ -167,15 +184,120 @@ export const SocketProvider = ({
     enabled: !isTest && !isForPreview && !isForManager,
   })
 
-  const socketRef = useRef<Socket>(
-    io(URL, {
-      autoConnect: false,
-      transports: ['websocket'],
-      query: {
-        userId: userId || genId(),
-      },
-    }),
+  const handleSendMessage: TSocketCtx['handleSendMessage'] = useCallback(
+    ({ message, cb, extraData, type }) => {
+      const trimmedMessage = message.trim()
+      if (trimmedMessage.length === 0) return
+
+      const address = getAddress(_channelId, userId)
+
+      const newMessage: TMessage = {
+        message: type === 'list-button' ? extraData || '' : trimmedMessage,
+        userId: adminId ? adminId : userId || genId(),
+        template: {} as any,
+        createdAt: new Date().toISOString(),
+        isTest,
+      }
+
+      socketRef.current.emit(
+        adminId ? EVENTS_SOCKET.AGENT_MESSAGE : EVENTS_SOCKET.MESSAGE,
+
+        adminId
+          ? {
+              type: 'message',
+              message: trimmedMessage,
+              contactId: _channelId,
+            }
+          : {
+              message: trimmedMessage,
+              address,
+              isTest,
+              createdAt: newMessage.createdAt,
+            },
+      )
+
+      queryClient.setQueryData(
+        ['messages', _channelId, userId || genId()],
+        (prev: Array<any>) => {
+          return [...prev, newMessage]
+        },
+      )
+
+      if (typingTimeoutRef.current !== null) {
+        clearTimeout(typingTimeoutRef.current)
+        typingTimeoutRef.current = null
+
+        socketRef.current.emit(EVENTS_SOCKET.STOP_TYPING, {
+          address,
+          isTest,
+          createdAt: new Date().toISOString(),
+          userId: adminId ? adminId : userId || genId(),
+        })
+      }
+
+      cb && cb(newMessage)
+    },
+    [_channelId, adminId, isTest, queryClient, userId],
   )
+
+  const handleClose = useCallback(() => {
+    if (window.parent) {
+      window.parent.postMessage(
+        {
+          type: 'TOGGLE_CHAT',
+        },
+        '*',
+      )
+    }
+    onClose?.()
+  }, [onClose])
+
+  const handleReload = useCallback(() => {
+    if (isForPreview) return
+
+    socketRef.current.emit(EVENTS_SOCKET.MESSAGE, {
+      type: 'event',
+      typeName: 'endConversation',
+      address: getAddress(_channelId, userId),
+      isTest,
+      message: '',
+    })
+    setDisableInput(false)
+
+    queryClient.setQueryData(
+      ['messages', _channelId, userId || genId()],
+      () => {
+        return []
+      },
+    )
+  }, [_channelId, isForPreview, isTest, queryClient, userId])
+
+  const handleTyping = useCallback(() => {
+    if (typingTimeoutRef.current !== null) {
+      clearTimeout(typingTimeoutRef.current)
+    } else {
+      socketRef.current.emit(EVENTS_SOCKET.TYPING, {
+        address: getAddress(_channelId, userId),
+        isTest,
+        createdAt: new Date().toISOString(),
+        userId: adminId ? adminId : userId || genId(),
+      })
+    }
+
+    typingTimeoutRef.current = setTimeout(() => {
+      socketRef.current.emit(EVENTS_SOCKET.STOP_TYPING, {
+        address: getAddress(_channelId, userId),
+        isTest,
+        createdAt: new Date().toISOString(),
+        userId: adminId ? adminId : userId || genId(),
+      })
+      typingTimeoutRef.current = null
+    }, 1000)
+  }, [_channelId, adminId, isTest, userId])
+
+  useUnmount(() => {
+    socketRef.current.disconnect()
+  })
 
   useEffect(() => {
     // if customStyles is set, don't connect to socket because it for preview
@@ -223,78 +345,6 @@ export const SocketProvider = ({
     }
   }, [_channelId, queryClient, userId, isForPreview])
 
-  const handleSendMessage: TSocketCtx['handleSendMessage'] = useCallback(
-    ({ message, cb, extraData, type }) => {
-      const trimmedMessage = message.trim()
-      if (trimmedMessage.length === 0) return
-
-      const _channelId = channelId || urlParams.get('channelId') || ''
-
-      const address = getAddress(_channelId)
-
-      const newMessage: TMessage = {
-        message: type === 'list-button' ? extraData || '' : trimmedMessage,
-        userId: adminId ? adminId : userId || genId(),
-        template: {} as any,
-        createdAt: new Date().toISOString(),
-        isTest,
-      }
-
-      socketRef.current.emit(EVENTS_SOCKET.MESSAGE, {
-        message: trimmedMessage,
-        address,
-        isTest,
-        createdAt: newMessage.createdAt,
-      })
-
-      queryClient.setQueryData(
-        ['messages', _channelId, userId || genId()],
-        (prev: Array<any>) => {
-          return [...prev, newMessage]
-        },
-      )
-
-      cb && cb(newMessage)
-    },
-    [channelId, isTest, queryClient, urlParams, userId],
-  )
-
-  const handleClose = useCallback(() => {
-    if (window.parent) {
-      window.parent.postMessage(
-        {
-          type: 'TOGGLE_CHAT',
-        },
-        '*',
-      )
-    }
-    onClose?.()
-  }, [onClose])
-
-  const handleReload = useCallback(() => {
-    if (isForPreview) return
-
-    socketRef.current.emit(EVENTS_SOCKET.MESSAGE, {
-      type: 'event',
-      typeName: 'endConversation',
-      address: getAddress(_channelId),
-      isTest,
-      message: '',
-    })
-    setDisableInput(false)
-
-    queryClient.setQueryData(
-      ['messages', _channelId, userId || genId()],
-      () => {
-        return []
-      },
-    )
-  }, [_channelId, isForPreview, isTest, queryClient, userId])
-
-  useUnmount(() => {
-    socketRef.current.disconnect()
-  })
-
   useEffect(() => {
     if (isForPreview) {
       setDisableInput(true)
@@ -330,6 +380,8 @@ export const SocketProvider = ({
         userId,
         handleReload,
         customStyles,
+        handleTyping,
+        adminId,
       }}
     >
       {children}
