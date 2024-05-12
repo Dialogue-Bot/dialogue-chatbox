@@ -48,6 +48,7 @@ export type TSocketCtx = {
   }
   handleTyping?: () => void
   adminId?: string
+  isForManager?: boolean
 }
 
 export const SocketCtx = createContext<TSocketCtx>({} as TSocketCtx)
@@ -382,6 +383,7 @@ export const SocketProvider = ({
         customStyles,
         handleTyping,
         adminId,
+        isForManager,
       }}
     >
       {children}

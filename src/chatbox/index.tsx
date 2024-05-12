@@ -12,7 +12,7 @@ const queryClient = new QueryClient()
  */
 
 const ChatBox = ({ className }: { className?: string }) => {
-  const { customStyles } = useSocket()
+  const { customStyles, isForManager } = useSocket()
 
   return (
     <div
@@ -29,7 +29,7 @@ const ChatBox = ({ className }: { className?: string }) => {
         <Header />
         <div className='flex-1 flex flex-col min-h-[1px]'>
           <Body />
-          <SendArea />
+          {!isForManager && <SendArea />}
         </div>
       </div>
     </div>
