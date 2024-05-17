@@ -24,7 +24,8 @@ jobs:
           file: ./Dockerfile
           builder: ${{steps.buildx.outputs.name}}
           push: true
-          tags: dialoguebot/chatbox:latest\
+          tags: dialoguebot/chatbox:latest
+
   publish-package:
     runs-on: ubuntu-latest
     steps:
