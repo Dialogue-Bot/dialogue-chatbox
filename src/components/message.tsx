@@ -1,7 +1,6 @@
 import { useSocket } from '@/hooks/useSocket'
 import { cn } from '@/lib/utils'
 import { TMessage } from '@/types/chatbox'
-import { genId } from '@/utils'
 
 type Props = {
   message: TMessage
@@ -16,9 +15,9 @@ type Props = {
  *
  */
 const Message = ({ message, children }: Props) => {
-  const { customStyles, adminId: _adminId } = useSocket()
+  const { customStyles, adminId: _adminId, isForManager } = useSocket()
 
-  const isLeft = message.isBot || message.userId !== genId()
+  const isLeft = message.isBot
 
   return (
     <>
@@ -28,19 +27,32 @@ const Message = ({ message, children }: Props) => {
         })}
       >
         <div
-          className={cn(
-            'bg-primary rounded-md text-white flex items-center justify-end w-max p-2 max-w-72 text-wrap ',
-            {
-              'bg-muted text-neutral-900 justify-start': isLeft,
-            },
-          )}
-          style={{
-            wordBreak: 'break-word',
-            backgroundColor: isLeft ? undefined : customStyles?.color,
-          }}
+          className={cn('flex flex-col gap-1 w-full items-end', {
+            'items-start': isLeft,
+          })}
         >
-          {message.message}
-          {children}
+          <span
+            className={cn('flex items-center text-xs text-muted-foreground', {
+              'justify-end': !isLeft,
+            })}
+          >
+            {isForManager ? (message.isBot ? 'From bot' : 'From user') : null}
+          </span>
+          <div
+            className={cn(
+              'bg-primary rounded-md text-white flex items-center justify-end w-max p-2 max-w-72 text-wrap ',
+              {
+                'bg-muted text-neutral-900 justify-start': isLeft,
+              },
+            )}
+            style={{
+              wordBreak: 'break-word',
+              backgroundColor: isLeft ? undefined : customStyles?.color,
+            }}
+          >
+            {message.message}
+            {children}
+          </div>
         </div>
       </div>
     </>

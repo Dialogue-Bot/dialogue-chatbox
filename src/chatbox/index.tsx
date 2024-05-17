@@ -17,7 +17,7 @@ const ChatBox = ({ className }: { className?: string }) => {
   return (
     <div
       className={cn(
-        'select-none w-full h-screen flex flex-col shadow',
+        'select-none w-full h-screen flex flex-col shadow chatbox',
         className,
       )}
       style={{

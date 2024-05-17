@@ -104,7 +104,6 @@ export const SocketProvider = ({
   const [customStyles, setCustomStyles] = useState(
     isForManager ? undefined : _customStyles,
   )
-  const typingTimeoutRef = useRef<NodeJS.Timeout | null>(null)
 
   const queryClient = useQueryClient()
 
@@ -200,22 +199,12 @@ export const SocketProvider = ({
         isTest,
       }
 
-      socketRef.current.emit(
-        adminId ? EVENTS_SOCKET.AGENT_MESSAGE : EVENTS_SOCKET.MESSAGE,
-
-        adminId
-          ? {
-              type: 'message',
-              message: trimmedMessage,
-              contactId: _channelId,
-            }
-          : {
-              message: trimmedMessage,
-              address,
-              isTest,
-              createdAt: newMessage.createdAt,
-            },
-      )
+      socketRef.current.emit(EVENTS_SOCKET.MESSAGE, {
+        message: trimmedMessage,
+        address,
+        isTest,
+        createdAt: newMessage.createdAt,
+      })
 
       queryClient.setQueryData(
         ['messages', _channelId, userId || genId()],
@@ -223,18 +212,6 @@ export const SocketProvider = ({
           return [...prev, newMessage]
         },
       )
-
-      if (typingTimeoutRef.current !== null) {
-        clearTimeout(typingTimeoutRef.current)
-        typingTimeoutRef.current = null
-
-        socketRef.current.emit(EVENTS_SOCKET.STOP_TYPING, {
-          address,
-          isTest,
-          createdAt: new Date().toISOString(),
-          userId: adminId ? adminId : userId || genId(),
-        })
-      }
 
       cb && cb(newMessage)
     },
@@ -273,29 +250,6 @@ export const SocketProvider = ({
     )
   }, [_channelId, isForPreview, isTest, queryClient, userId])
 
-  const handleTyping = useCallback(() => {
-    if (typingTimeoutRef.current !== null) {
-      clearTimeout(typingTimeoutRef.current)
-    } else {
-      socketRef.current.emit(EVENTS_SOCKET.TYPING, {
-        address: getAddress(_channelId, userId),
-        isTest,
-        createdAt: new Date().toISOString(),
-        userId: adminId ? adminId : userId || genId(),
-      })
-    }
-
-    typingTimeoutRef.current = setTimeout(() => {
-      socketRef.current.emit(EVENTS_SOCKET.STOP_TYPING, {
-        address: getAddress(_channelId, userId),
-        isTest,
-        createdAt: new Date().toISOString(),
-        userId: adminId ? adminId : userId || genId(),
-      })
-      typingTimeoutRef.current = null
-    }, 1000)
-  }, [_channelId, adminId, isTest, userId])
-
   useUnmount(() => {
     socketRef.current.disconnect()
   })
@@ -318,7 +272,7 @@ export const SocketProvider = ({
       queryClient.setQueryData(
         ['messages', _channelId, userId || genId()],
         (prev: Array<any>) => {
-          return [...prev, data]
+          return [...prev, data].filter((msg) => msg.userId !== 'typing')
         },
       )
     })
@@ -381,7 +335,6 @@ export const SocketProvider = ({
         userId,
         handleReload,
         customStyles,
-        handleTyping,
         adminId,
         isForManager,
       }}
