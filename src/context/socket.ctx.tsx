@@ -1,4 +1,4 @@
-import { EVENTS_SOCKET } from '@/constants'
+import { API_URL, EVENTS_SOCKET } from '@/constants'
 import { TMessage, TTemplateType } from '@/types/chatbox'
 import { genId, getAddress } from '@/utils'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
@@ -52,10 +52,6 @@ export type TSocketCtx = {
 }
 
 export const SocketCtx = createContext<TSocketCtx>({} as TSocketCtx)
-
-const URL = import.meta.env.DEV
-  ? import.meta.env.VITE_DEV_API_URL
-  : import.meta.env.VITE_PROD_API_URL
 
 export type Props = {
   children: React.ReactNode
@@ -119,7 +115,7 @@ export const SocketProvider = ({
   )
 
   const socketRef = useRef<Socket>(
-    io(URL, {
+    io(API_URL, {
       autoConnect: false,
       transports: ['websocket'],
       query: {
@@ -170,7 +166,7 @@ export const SocketProvider = ({
     queryKey: ['custom-style', _channelId, userId || genId()],
     queryFn: async () => {
       try {
-        const res = await fetch(`${URL}/api/custom-chatbox/${_channelId}`)
+        const res = await fetch(`${API_URL}/api/custom-chatbox/${_channelId}`)
 
         const json = await res.json()
 
