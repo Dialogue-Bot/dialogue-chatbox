@@ -6,3 +6,7 @@ export const EVENTS_SOCKET = {
 }
 
 export const USER_ID_KEY = 'user-bot-id'
+
+export const API_URL = import.meta.env.DEV
+  ? 'http://localhost:8080'
+  : 'https://api.dialoguebot.tech'
