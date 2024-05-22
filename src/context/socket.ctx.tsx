@@ -80,6 +80,7 @@ export type Props = {
   isForPreview?: boolean
   isForManager?: boolean
   adminId?: string
+  API_URL?: string
 }
 
 export const SocketProvider = ({
@@ -95,6 +96,7 @@ export const SocketProvider = ({
   isForPreview,
   isForManager,
   adminId,
+  ...props
 }: Props) => {
   const [disableInput, setDisableInput] = useState<boolean>(false)
   const [customStyles, setCustomStyles] = useState(
@@ -115,7 +117,7 @@ export const SocketProvider = ({
   )
 
   const socketRef = useRef<Socket>(
-    io(API_URL, {
+    io(props.API_URL || API_URL, {
       autoConnect: false,
       transports: ['websocket'],
       query: {
@@ -166,7 +168,9 @@ export const SocketProvider = ({
     queryKey: ['custom-style', _channelId, userId || genId()],
     queryFn: async () => {
       try {
-        const res = await fetch(`${API_URL}/api/custom-chatbox/${_channelId}`)
+        const res = await fetch(
+          `${props.API_URL || API_URL}/api/custom-chatbox/${_channelId}`,
+        )
 
         const json = await res.json()
 

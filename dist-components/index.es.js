@@ -22,7 +22,7 @@ var ut = typeof globalThis < "u" ? globalThis : typeof window < "u" ? window : t
 function Ba(t) {
   return t && t.__esModule && Object.prototype.hasOwnProperty.call(t, "default") ? t.default : t;
 }
-var Cn = { exports: {} }, Jt = {};
+var kn = { exports: {} }, Jt = {};
 /**
  * @license React
  * react-jsx-runtime.production.min.js
@@ -88,10 +88,10 @@ function Fa() {
         Z.unshift("Warning: " + x), Function.prototype.apply.call(console[c], console, Z);
       }
     }
-    var U = !1, $ = !1, Y = !1, ne = !1, B = !1, G;
+    var q = !1, $ = !1, Y = !1, ne = !1, B = !1, G;
     G = Symbol.for("react.module.reference");
     function X(c) {
-      return !!(typeof c == "string" || typeof c == "function" || c === n || c === i || B || c === s || c === f || c === h || ne || c === y || U || $ || Y || typeof c == "object" && c !== null && (c.$$typeof === d || c.$$typeof === p || c.$$typeof === o || c.$$typeof === a || c.$$typeof === l || // This needs to include all possible module reference object
+      return !!(typeof c == "string" || typeof c == "function" || c === n || c === i || B || c === s || c === f || c === h || ne || c === y || q || $ || Y || typeof c == "object" && c !== null && (c.$$typeof === d || c.$$typeof === p || c.$$typeof === o || c.$$typeof === a || c.$$typeof === l || // This needs to include all possible module reference object
       // types supported by any Flight configuration anywhere since
       // we don't know which Flight build this will end up being used
       // with.
@@ -647,9 +647,9 @@ Check the top-level render call using <` + O + ">.");
     Zt.Fragment = n, Zt.jsx = Ma, Zt.jsxs = La;
   }()), Zt;
 }
-process.env.NODE_ENV === "production" ? Cn.exports = Ia() : Cn.exports = Fa();
-var R = Cn.exports;
-const $i = Object, rn = Map, Or = Set, es = Or.prototype.has, qa = Or.prototype.add, Kr = rn.prototype.has, Ms = rn.prototype.get, nn = rn.prototype.set, $t = 1, On = 2, cr = 4, Gr = 8, Ua = 16, Ha = 32, Ge = "__t", Ls = "__p", An = "__e", Va = /acit|ex(?:s|g|n|p|$)|rph|grid|ows|mnc|ntw|ine[ch]|zoo|^ord|itera/i, Qa = "http://www.w3.org/1999/xlink", za = "http://www.w3.org/2000/xmlns/", Wa = 120, Ya = new Or(["href", "list", "form", "tabIndex", "download"]), Ka = new Or(["area", "base", "basefont", "bgsound", "br", "col", "command", "embed", "frame", "hr", "image", "img", "input", "isindex", "keygen", "link", "menuitem", "meta", "nextid", "param", "source", "track", "wbr"]);
+process.env.NODE_ENV === "production" ? kn.exports = Ia() : kn.exports = Fa();
+var R = kn.exports;
+const $i = Object, rn = Map, Or = Set, es = Or.prototype.has, Ua = Or.prototype.add, Kr = rn.prototype.has, Ms = rn.prototype.get, nn = rn.prototype.set, $t = 1, Cn = 2, cr = 4, Gr = 8, qa = 16, Ha = 32, Ge = "__t", Ls = "__p", On = "__e", Va = /acit|ex(?:s|g|n|p|$)|rph|grid|ows|mnc|ntw|ine[ch]|zoo|^ord|itera/i, Qa = "http://www.w3.org/1999/xlink", za = "http://www.w3.org/2000/xmlns/", Wa = 120, Ya = new Or(["href", "list", "form", "tabIndex", "download"]), Ka = new Or(["area", "base", "basefont", "bgsound", "br", "col", "command", "embed", "frame", "hr", "image", "img", "input", "isindex", "keygen", "link", "menuitem", "meta", "nextid", "param", "source", "track", "wbr"]);
 if (typeof window > "u")
   throw new Error(
     "See http://million.dev/docs/install to install the compiler."
@@ -666,12 +666,12 @@ const Mi = /* @__PURE__ */ ot.createElement("template"), Ga = Mi.content, Ns = /
   const r = e ? Ns : Mi;
   return r.innerHTML = t, (e ? Ns : Ga).firstChild;
 };
-ot[An] = new Or();
+ot[On] = new Or();
 const Bs = (t, e, r) => {
   let n = e.toLowerCase(), s = !1;
   n.endsWith("capture") && (n = n.slice(0, -7), s = !0);
   const i = `$$${n}`;
-  es.call(ot[An], n) || (ec.call(
+  es.call(ot[On], n) || (ec.call(
     ot,
     n,
     (a) => {
@@ -687,7 +687,7 @@ const Bs = (t, e, r) => {
       }
     },
     { capture: s }
-  ), qa.call(ot[An], n));
+  ), Ua.call(ot[On], n));
   const o = (a) => {
     var l;
     a ? "key" in a && a.key === ((l = t[i]) == null ? void 0 : l.key) || (t[i] = a) : t[i] = null;
@@ -715,9 +715,9 @@ const Bs = (t, e, r) => {
   sc.call(t, e);
 }, Nr = (t, e, r) => {
   typeof r != "number" || Va.test(e) ? t.style[e] = r : typeof r == "string" ? t.style.cssText = r : e.startsWith("-") ? t.style.setProperty(e, String(r)) : r == null ? t.style[e] = "" : t.style[e] = `${String(r)}px`;
-}, qs = (t, e, r) => {
-  e = e.replace(/xlink(?:H|:h)/, "h").replace(/sName$/, "s"), e.startsWith("xmlns") ? Ds.call(t, za, e, String(r)) : e.startsWith("xlink") && Ds.call(t, Qa, "href", String(r));
 }, Us = (t, e, r) => {
+  e = e.replace(/xlink(?:H|:h)/, "h").replace(/sName$/, "s"), e.startsWith("xmlns") ? Ds.call(t, za, e, String(r)) : e.startsWith("xlink") && Ds.call(t, Qa, "href", String(r));
+}, qs = (t, e, r) => {
   const n = r == null;
   if (r = n ? "" : r, e in t && t[e] !== void 0 && t[e] !== null && !(t instanceof SVGElement) && es.call(Ya, e))
     try {
@@ -839,7 +839,7 @@ const Di = (t, e = [], r = []) => {
             b: null
           }) : f.charCodeAt(0) === Wa ? i.e.push({
             /* type */
-            t: Ua,
+            t: qa,
             /* name */
             n: f,
             /* value */
@@ -856,7 +856,7 @@ const Di = (t, e = [], r = []) => {
             b: null
           }) : i.e.push({
             /* type */
-            t: On,
+            t: Cn,
             /* name */
             n: f,
             /* value */
@@ -1046,12 +1046,12 @@ class Bi extends lr {
         for (let $ = a; $ <= f; $++)
           nn.call(_, r[$].k, $);
       }
-      const U = _.get(k);
-      if (U === void 0)
+      const q = _.get(k);
+      if (q === void 0)
         Mt.call(d, o, p.l || null);
       else {
-        const $ = r[U];
-        wn.call($, p, null), Rt.call($, d), n[l] = $, r[U] = null;
+        const $ = r[q];
+        wn.call($, p, null), Rt.call($, d), n[l] = $, r[q] = null;
       }
       d = n[++l];
     }
@@ -1102,12 +1102,12 @@ const ts = Bi.prototype, Ii = ts.m, Fi = ts.p, fc = ts.x, dc = new Proxy(
       return { $: e };
     }
   }
-), qi = (t, e, r, n) => {
+), Ui = (t, e, r, n) => {
   const s = t(dc), i = [], o = ic(
     Di(e ? e(s) : s, i),
     n
   );
-  return ji(o), (a, l, f) => new Ui(
+  return ji(o), (a, l, f) => new qi(
     o,
     i,
     a,
@@ -1121,7 +1121,7 @@ const ts = Bi.prototype, Ii = ts.m, Fi = ts.p, fc = ts.x, dc = new Proxy(
   const r = Mt.call(e, t.t(), t.l, null);
   return Xr.call(t), t.k = e.k, r;
 };
-class Ui extends lr {
+class qi extends lr {
   constructor(e, r, n, s, i, o) {
     super(), this.r = e, this.d = n, this.e = r, this.k = s, this.c = Array(r.length), i ? this._u = i : this._u = null, o ? this.g = o : this.g = null;
   }
@@ -1163,8 +1163,8 @@ class Ui extends lr {
         } else if (_.t & cr) {
           const k = Bs(p, _.n, m);
           p[Ls + _.n] = k;
-        } else if (_.t & On)
-          Us(p, _.n, m);
+        } else if (_.t & Cn)
+          qs(p, _.n, m);
         else if (_.t & Gr)
           if (typeof m == "string" || typeof m == "number")
             Nr(p, _.n, m);
@@ -1172,7 +1172,7 @@ class Ui extends lr {
             for (const k in m)
               Nr(p, k, m[k]);
         else
-          qs(p, _.n, m);
+          Us(p, _.n, m);
       }
       const d = (a = h.i) == null ? void 0 : a.length;
       if (d)
@@ -1228,8 +1228,8 @@ class Ui extends lr {
               // eslint-disable-next-line eqeqeq
               v == null || v === !1 ? "" : String(v)
             );
-          } else if (d.t & On)
-            Us(f, d.n, v);
+          } else if (d.t & Cn)
+            qs(f, d.n, v);
           else if (d.t & Gr)
             if (typeof v == "string" || typeof v == "number")
               Nr(f, d.n, v);
@@ -1237,7 +1237,7 @@ class Ui extends lr {
               for (const _ in v)
                 v[_] !== y[_] && Nr(f, _, v[_]);
           else
-            qs(f, d.n, v);
+            Us(f, d.n, v);
         }
       }
     }
@@ -1273,7 +1273,7 @@ const Vs = (t, e, r, n) => {
     e = lt(e, a);
   }
   return i && (r[n] = e), e;
-}, Ar = Ui.prototype, Mt = Ar.m, Rt = Ar.p, wn = Ar.v, Xr = Ar.x, yc = Ar.u, gc = {
+}, Ar = qi.prototype, Mt = Ar.m, Rt = Ar.p, wn = Ar.v, Xr = Ar.x, yc = Ar.u, gc = {
   noSlot: !1
 }, an = "slot", Hi = "g", mc = ({
   effect: t,
@@ -1326,35 +1326,35 @@ const Vs = (t, e, r, n) => {
     unstable: e
   };
   return r && (r[n] = h), h;
-}, Tn = (t) => {
+}, An = (t) => {
   var s;
   if (typeof t != "object" || t === null || !("type" in t))
     return typeof t == "number" ? String(t) : t;
   let e = t.type;
   if (typeof e == "function")
-    return Tn(e(t.props ?? {}));
+    return An(e(t.props ?? {}));
   if (typeof e == "object" && "$" in e)
     return e;
   const r = { ...t.props };
   "css" in r && "__EMOTION_TYPE_PLEASE_DO_NOT_USE__" in r && (r.style = r.css.styles, e = r.__EMOTION_TYPE_PLEASE_DO_NOT_USE__, delete r.__EMOTION_TYPE_PLEASE_DO_NOT_USE__, delete r.css);
   const n = (s = t.props) == null ? void 0 : s.children;
-  return n != null && (r.children = Rn(t.props.children).map(
-    (i) => Tn(i)
+  return n != null && (r.children = Tn(t.props.children).map(
+    (i) => An(i)
   )), {
     type: e,
     // lets pretend no function go through
     props: r
   };
-}, Rn = (t) => {
+}, Tn = (t) => {
   if (t == null)
     return [];
   if (typeof t == "object" && "type" in t && t.type === Et)
-    return Rn(t.props.children);
+    return Tn(t.props.children);
   if (!Array.isArray(t) || typeof t == "object" && "$" in t)
     return [t];
   const e = t.flat(1 / 0), r = [];
   for (let n = 0, s = e.length; n < s; ++n)
-    r.push(...Rn(e[n]));
+    r.push(...Tn(e[n]));
   return r;
 }, Vi = typeof window > "u" ? Ye : Na;
 function ns(t, e, r) {
@@ -1406,14 +1406,14 @@ const zi = (t, e = {}) => {
   const r = (e == null ? void 0 : e.experimental_noSlot) ?? gc.noSlot;
   let n = e == null ? void 0 : e.block;
   const s = e != null && e.svg ? Hi : an;
-  t && (n = qi(
+  t && (n = Ui(
     t,
-    Tn,
+    An,
     e == null ? void 0 : e.shouldUpdate,
     e == null ? void 0 : e.svg
   ));
   const i = (o, a) => {
-    var P, U;
+    var P, q;
     const l = xc(), f = wc(), h = o._hmr, p = Ae(null), d = Ae(null), y = Ae([]);
     o = vc(o, a, y.current), (P = d.current) == null || P.call(d, o);
     const v = Hr(() => {
@@ -1439,7 +1439,7 @@ To avoid this error, \`experimental_options.noSlot\` should be false`)
       };
     }, []), _ = Vr(() => r ? null : pe((e == null ? void 0 : e.as) ?? s, { ref: p }), []), m = y.current.length, k = new Array(m);
     for (let $ = 0; $ < m; ++$)
-      k[$] = (U = y.current[$]) == null ? void 0 : U.portal;
+      k[$] = (q = y.current[$]) == null ? void 0 : q.portal;
     return pe(
       Et,
       {},
@@ -1508,7 +1508,7 @@ const Qs = (t, e, r, n, s) => {
         }
       }
     }
-    const p = qi((y) => y == null ? void 0 : y.scope), d = (y, v, _) => p(
+    const p = Ui((y) => y == null ? void 0 : y.scope), d = (y, v, _) => p(
       {
         scope: rs(
           pe(h.type, y),
@@ -1569,7 +1569,8 @@ const er = {
   TYPING: "typing",
   STOP_TYPING: "stop-typing",
   AGENT_MESSAGE: "agent-message"
-}, zs = "user-bot-id";
+}, zs = "user-bot-id", Rn = "https://api.dialoguebot.tech";
+console.log("API_URL", Rn);
 var at = {}, te = {}, fe = {};
 Object.defineProperty(fe, "__esModule", { value: !0 });
 fe.output = fe.exists = fe.hash = fe.bytes = fe.bool = fe.number = fe.isBytes = void 0;
@@ -1788,7 +1789,7 @@ ln.crypto = typeof globalThis == "object" && "crypto" in globalThis ? globalThis
     return typeof g == "string" && (g = M(g)), (0, r.bytes)(g), g;
   }
   t.toBytes = P;
-  function U(...g) {
+  function q(...g) {
     let A = 0;
     for (let b = 0; b < g.length; b++) {
       const w = g[b];
@@ -1801,7 +1802,7 @@ ln.crypto = typeof globalThis == "object" && "crypto" in globalThis ? globalThis
     }
     return E;
   }
-  t.concatBytes = U;
+  t.concatBytes = q;
   class $ {
     // Safe version that clones internal state
     clone() {
@@ -2003,9 +2004,9 @@ at.createCounter = Ro;
 at.createFingerprint = To;
 at.isCuid = Ic;
 const { createId: Fc, init: Sh, getConstants: kh, isCuid: Ch } = at;
-var qc = Fc;
+var Uc = Fc;
 const Ee = () => {
-  const t = qc(), e = localStorage.getItem(zs);
+  const t = Uc(), e = localStorage.getItem(zs);
   return e || (localStorage.setItem(zs, t), t);
 }, Gs = (t, e) => {
   const r = e || Ee();
@@ -2063,7 +2064,7 @@ var Rr = class {
 }, Yt = typeof window > "u" || "Deno" in globalThis;
 function Ce() {
 }
-function Uc(t, e) {
+function qc(t, e) {
   return typeof t == "function" ? t(e) : t;
 }
 function Mn(t) {
@@ -2303,12 +2304,12 @@ function jo(t) {
       var Y;
       if (n)
         return;
-      const M = t.retry ?? (Yt ? 0 : 3), P = t.retryDelay ?? Yc, U = typeof P == "function" ? P(r, k) : P, $ = M === !0 || typeof M == "number" && r < M || typeof M == "function" && M(r, k);
+      const M = t.retry ?? (Yt ? 0 : 3), P = t.retryDelay ?? Yc, q = typeof P == "function" ? P(r, k) : P, $ = M === !0 || typeof M == "number" && r < M || typeof M == "function" && M(r, k);
       if (e || !$) {
         y(k);
         return;
       }
-      r++, (Y = t.onFail) == null || Y.call(t, r, k), Hc(U).then(() => {
+      r++, (Y = t.onFail) == null || Y.call(t, r, k), Hc(q).then(() => {
         if (p())
           return v();
       }).then(() => {
@@ -2780,7 +2781,7 @@ var De, Ei, Jc = (Ei = class extends Rr {
     this.execute(this.state.variables);
   }
   async execute(e) {
-    var s, i, o, a, l, f, h, p, d, y, v, _, m, k, M, P, U, $, Y, ne;
+    var s, i, o, a, l, f, h, p, d, y, v, _, m, k, M, P, q, $, Y, ne;
     const r = () => (T(this, It, jo({
       fn: () => this.options.mutationFn ? this.options.mutationFn(e) : Promise.reject(new Error("No mutationFn found")),
       onFail: (B, G) => {
@@ -2838,8 +2839,8 @@ var De, Ei, Jc = (Ei = class extends Rr {
           B,
           e,
           this.state.context
-        )), await (($ = (U = u(this, xe).config).onSettled) == null ? void 0 : $.call(
-          U,
+        )), await (($ = (q = u(this, xe).config).onSettled) == null ? void 0 : $.call(
+          q,
           void 0,
           B,
           this.state.variables,
@@ -3017,14 +3018,14 @@ function rl(t) {
           `Attempted to invoke queryFn when set to skipToken. This is likely a configuration error. Query hash: '${e.options.queryHash}'`
         ), Promise.reject(
           new Error(`Missing queryFn: '${e.options.queryHash}'`)
-        )), d = async (P, U, $) => {
+        )), d = async (P, q, $) => {
           if (f)
             return Promise.reject();
-          if (U == null && P.pages.length)
+          if (q == null && P.pages.length)
             return Promise.resolve(P);
           const Y = {
             queryKey: e.queryKey,
-            pageParam: U,
+            pageParam: q,
             direction: $ ? "backward" : "forward",
             meta: e.options.meta
           };
@@ -3034,15 +3035,15 @@ function rl(t) {
           ), { maxPages: B } = e.options, G = $ ? Qc : Vc;
           return {
             pages: G(P.pages, ne, B),
-            pageParams: G(P.pageParams, U, B)
+            pageParams: G(P.pageParams, q, B)
           };
         };
         let y;
         if (i && o.length) {
-          const P = i === "backward", U = P ? nl : ti, $ = {
+          const P = i === "backward", q = P ? nl : ti, $ = {
             pages: o,
             pageParams: a
-          }, Y = U(s, $);
+          }, Y = q(s, $);
           y = await d($, Y, P);
         } else {
           y = await d(
@@ -3050,7 +3051,7 @@ function rl(t) {
             a[0] ?? s.initialPageParam
           );
           const P = t ?? o.length;
-          for (let U = 1; U < P; U++) {
+          for (let q = 1; q < P; q++) {
             const $ = ti(s, y);
             y = await d(y, $);
           }
@@ -3092,20 +3093,20 @@ function nl(t, { pages: e, pageParams: r }) {
     r
   );
 }
-var se, rt, nt, Ft, qt, st, Ut, Ht, Ci, sl = (Ci = class {
+var se, rt, nt, Ft, Ut, st, qt, Ht, Ci, sl = (Ci = class {
   constructor(t = {}) {
     L(this, se, void 0);
     L(this, rt, void 0);
     L(this, nt, void 0);
     L(this, Ft, void 0);
-    L(this, qt, void 0);
-    L(this, st, void 0);
     L(this, Ut, void 0);
+    L(this, st, void 0);
+    L(this, qt, void 0);
     L(this, Ht, void 0);
-    T(this, se, t.queryCache || new Jc()), T(this, rt, t.mutationCache || new tl()), T(this, nt, t.defaultOptions || {}), T(this, Ft, /* @__PURE__ */ new Map()), T(this, qt, /* @__PURE__ */ new Map()), T(this, st, 0);
+    T(this, se, t.queryCache || new Jc()), T(this, rt, t.mutationCache || new tl()), T(this, nt, t.defaultOptions || {}), T(this, Ft, /* @__PURE__ */ new Map()), T(this, Ut, /* @__PURE__ */ new Map()), T(this, st, 0);
   }
   mount() {
-    Lr(this, st)._++, u(this, st) === 1 && (T(this, Ut, cs.subscribe(async (t) => {
+    Lr(this, st)._++, u(this, st) === 1 && (T(this, qt, cs.subscribe(async (t) => {
       t && (await this.resumePausedMutations(), u(this, se).onFocus());
     })), T(this, Ht, Zr.subscribe(async (t) => {
       t && (await this.resumePausedMutations(), u(this, se).onOnline());
@@ -3113,7 +3114,7 @@ var se, rt, nt, Ft, qt, st, Ut, Ht, Ci, sl = (Ci = class {
   }
   unmount() {
     var t, e;
-    Lr(this, st)._--, u(this, st) === 0 && ((t = u(this, Ut)) == null || t.call(this), T(this, Ut, void 0), (e = u(this, Ht)) == null || e.call(this), T(this, Ht, void 0));
+    Lr(this, st)._--, u(this, st) === 0 && ((t = u(this, qt)) == null || t.call(this), T(this, qt, void 0), (e = u(this, Ht)) == null || e.call(this), T(this, Ht, void 0));
   }
   isFetching(t) {
     return u(this, se).findAll({ ...t, fetchStatus: "fetching" }).length;
@@ -3144,7 +3145,7 @@ var se, rt, nt, Ft, qt, st, Ut, Ht, Ci, sl = (Ci = class {
   setQueryData(t, e, r) {
     const n = this.defaultQueryOptions({ queryKey: t }), s = u(this, se).get(
       n.queryHash
-    ), i = s == null ? void 0 : s.state.data, o = Uc(e, i);
+    ), i = s == null ? void 0 : s.state.data, o = qc(e, i);
     if (o !== void 0)
       return u(this, se).build(this, n).setData(o, { ...r, manual: !0 });
   }
@@ -3253,13 +3254,13 @@ var se, rt, nt, Ft, qt, st, Ut, Ht, Ci, sl = (Ci = class {
     }), r;
   }
   setMutationDefaults(t, e) {
-    u(this, qt).set(fr(t), {
+    u(this, Ut).set(fr(t), {
       mutationKey: t,
       defaultOptions: e
     });
   }
   getMutationDefaults(t) {
-    const e = [...u(this, qt).values()];
+    const e = [...u(this, Ut).values()];
     let r = {};
     return e.forEach((n) => {
       dr(t, n.mutationKey) && (r = { ...r, ...n.defaultOptions });
@@ -3290,7 +3291,7 @@ var se, rt, nt, Ft, qt, st, Ut, Ht, Ci, sl = (Ci = class {
   clear() {
     u(this, se).clear(), u(this, rt).clear();
   }
-}, se = new WeakMap(), rt = new WeakMap(), nt = new WeakMap(), Ft = new WeakMap(), qt = new WeakMap(), st = new WeakMap(), Ut = new WeakMap(), Ht = new WeakMap(), Ci), ve, ee, br, me, mt, Vt, Fe, vr, Qt, zt, bt, vt, it, Wt, wt, ir, wr, Dn, xr, Bn, _r, In, Er, Fn, Sr, qn, kr, Un, Cr, Hn, tn, Io, Oi, il = (Oi = class extends Rr {
+}, se = new WeakMap(), rt = new WeakMap(), nt = new WeakMap(), Ft = new WeakMap(), Ut = new WeakMap(), st = new WeakMap(), qt = new WeakMap(), Ht = new WeakMap(), Ci), ve, ee, br, me, mt, Vt, Fe, vr, Qt, zt, bt, vt, it, Wt, wt, ir, wr, Dn, xr, Bn, _r, In, Er, Fn, Sr, Un, kr, qn, Cr, Hn, tn, Io, Oi, il = (Oi = class extends Rr {
   constructor(e, r) {
     super();
     L(this, wt);
@@ -3344,7 +3345,7 @@ var se, rt, nt, Ft, qt, st, Ut, Ht, Ci, sl = (Ci = class {
     );
   }
   destroy() {
-    this.listeners = /* @__PURE__ */ new Set(), Q(this, Sr, qn).call(this), Q(this, kr, Un).call(this), u(this, ee).removeObserver(this);
+    this.listeners = /* @__PURE__ */ new Set(), Q(this, Sr, Un).call(this), Q(this, kr, qn).call(this), u(this, ee).removeObserver(this);
   }
   setOptions(e, r) {
     const n = this.options, s = u(this, ee);
@@ -3446,15 +3447,15 @@ var se, rt, nt, Ft, qt, st, Ut, Ht, Ci, sl = (Ci = class {
       ), d = !0);
     }
     u(this, Fe) && (v = u(this, Fe), y = u(this, Qt), _ = Date.now(), m = "error");
-    const k = p.fetchStatus === "fetching", M = m === "pending", P = m === "error", U = M && k, $ = y !== void 0;
+    const k = p.fetchStatus === "fetching", M = m === "pending", P = m === "error", q = M && k, $ = y !== void 0;
     return {
       status: m,
       fetchStatus: p.fetchStatus,
       isPending: M,
       isSuccess: m === "success",
       isError: P,
-      isInitialLoading: U,
-      isLoading: U,
+      isInitialLoading: q,
+      isLoading: q,
       data: y,
       dataUpdatedAt: p.dataUpdatedAt,
       error: v,
@@ -3506,7 +3507,7 @@ var se, rt, nt, Ft, qt, st, Ut, Ht, Ci, sl = (Ci = class {
   );
   return e != null && e.throwOnError || (r = r.catch(Ce)), r;
 }, wr = new WeakSet(), Dn = function() {
-  if (Q(this, Sr, qn).call(this), Yt || u(this, me).isStale || !Mn(this.options.staleTime))
+  if (Q(this, Sr, Un).call(this), Yt || u(this, me).isStale || !Mn(this.options.staleTime))
     return;
   const r = Mo(
     u(this, me).dataUpdatedAt,
@@ -3518,14 +3519,14 @@ var se, rt, nt, Ft, qt, st, Ut, Ht, Ci, sl = (Ci = class {
 }, xr = new WeakSet(), Bn = function() {
   return (typeof this.options.refetchInterval == "function" ? this.options.refetchInterval(u(this, ee)) : this.options.refetchInterval) ?? !1;
 }, _r = new WeakSet(), In = function(e) {
-  Q(this, kr, Un).call(this), T(this, it, e), !(Yt || this.options.enabled === !1 || !Mn(u(this, it)) || u(this, it) === 0) && T(this, vt, setInterval(() => {
+  Q(this, kr, qn).call(this), T(this, it, e), !(Yt || this.options.enabled === !1 || !Mn(u(this, it)) || u(this, it) === 0) && T(this, vt, setInterval(() => {
     (this.options.refetchIntervalInBackground || cs.isFocused()) && Q(this, wt, ir).call(this);
   }, u(this, it)));
 }, Er = new WeakSet(), Fn = function() {
   Q(this, wr, Dn).call(this), Q(this, _r, In).call(this, Q(this, xr, Bn).call(this));
-}, Sr = new WeakSet(), qn = function() {
+}, Sr = new WeakSet(), Un = function() {
   u(this, bt) && (clearTimeout(u(this, bt)), T(this, bt, void 0));
-}, kr = new WeakSet(), Un = function() {
+}, kr = new WeakSet(), qn = function() {
   u(this, vt) && (clearInterval(u(this, vt)), T(this, vt, void 0));
 }, Cr = new WeakSet(), Hn = function() {
   const e = u(this, ve).getQueryCache().build(u(this, ve), this.options);
@@ -3567,7 +3568,7 @@ function al(t, e) {
 }
 var Fo = we.createContext(
   void 0
-), qo = (t) => {
+), Uo = (t) => {
   const e = we.useContext(Fo);
   if (t)
     return t;
@@ -3579,8 +3580,8 @@ var Fo = we.createContext(
   children: e
 }) => (we.useEffect(() => (t.mount(), () => {
   t.unmount();
-}), [t]), /* @__PURE__ */ R.jsx(Fo.Provider, { value: t, children: e })), Uo = we.createContext(!1), ll = () => we.useContext(Uo);
-Uo.Provider;
+}), [t]), /* @__PURE__ */ R.jsx(Fo.Provider, { value: t, children: e })), qo = we.createContext(!1), ll = () => we.useContext(qo);
+qo.Provider;
 function ul() {
   let t = !1;
   return {
@@ -3618,7 +3619,7 @@ function wl(t, e, r) {
     throw new Error(
       'Bad argument type. Starting with v5, only the "Object" form is allowed when calling query related functions. Please use the error stack to find the culprit call. More info here: https://tanstack.com/query/latest/docs/react/guides/migrating-to-v5#supports-a-single-signature-one-object'
     );
-  const n = qo(r), s = ll(), i = fl(), o = n.defaultQueryOptions(t);
+  const n = Uo(r), s = ll(), i = fl(), o = n.defaultQueryOptions(t);
   o._optimisticResults = s ? "isRestoring" : "optimistic", ml(o), pl(o, i), yl(i);
   const [a] = we.useState(
     () => new e(
@@ -3653,19 +3654,19 @@ function wl(t, e, r) {
 function si(t, e) {
   return wl(t, il, e);
 }
-const Ue = /* @__PURE__ */ Object.create(null);
-Ue.open = "0";
-Ue.close = "1";
-Ue.ping = "2";
-Ue.pong = "3";
-Ue.message = "4";
-Ue.upgrade = "5";
-Ue.noop = "6";
+const qe = /* @__PURE__ */ Object.create(null);
+qe.open = "0";
+qe.close = "1";
+qe.ping = "2";
+qe.pong = "3";
+qe.message = "4";
+qe.upgrade = "5";
+qe.noop = "6";
 const zr = /* @__PURE__ */ Object.create(null);
-Object.keys(Ue).forEach((t) => {
-  zr[Ue[t]] = t;
+Object.keys(qe).forEach((t) => {
+  zr[qe[t]] = t;
 });
-const Qn = { type: "error", data: "parser error" }, Ho = typeof Blob == "function" || typeof Blob < "u" && Object.prototype.toString.call(Blob) === "[object BlobConstructor]", Vo = typeof ArrayBuffer == "function", Qo = (t) => typeof ArrayBuffer.isView == "function" ? ArrayBuffer.isView(t) : t && t.buffer instanceof ArrayBuffer, hs = ({ type: t, data: e }, r, n) => Ho && e instanceof Blob ? r ? n(e) : ii(e, n) : Vo && (e instanceof ArrayBuffer || Qo(e)) ? r ? n(e) : ii(new Blob([e]), n) : n(Ue[t] + (e || "")), ii = (t, e) => {
+const Qn = { type: "error", data: "parser error" }, Ho = typeof Blob == "function" || typeof Blob < "u" && Object.prototype.toString.call(Blob) === "[object BlobConstructor]", Vo = typeof ArrayBuffer == "function", Qo = (t) => typeof ArrayBuffer.isView == "function" ? ArrayBuffer.isView(t) : t && t.buffer instanceof ArrayBuffer, hs = ({ type: t, data: e }, r, n) => Ho && e instanceof Blob ? r ? n(e) : ii(e, n) : Vo && (e instanceof ArrayBuffer || Qo(e)) ? r ? n(e) : ii(new Blob([e]), n) : n(qe[t] + (e || "")), ii = (t, e) => {
   const r = new FileReader();
   return r.onload = function() {
     const n = r.result.split(",")[1];
@@ -4040,12 +4041,12 @@ function Zo(t) {
 }
 function Fl() {
 }
-const ql = function() {
+const Ul = function() {
   return new Zo({
     xdomain: !1
   }).responseType != null;
 }();
-class Ul extends ds {
+class ql extends ds {
   /**
    * XHR Polling constructor.
    *
@@ -4059,7 +4060,7 @@ class Ul extends ds {
       s || (s = n ? "443" : "80"), this.xd = typeof location < "u" && e.hostname !== location.hostname || s !== e.port;
     }
     const r = e && e.forceBase64;
-    this.supportsBinary = ql && !r, this.opts.withCredentials && (this.cookieJar = void 0);
+    this.supportsBinary = Ul && !r, this.opts.withCredentials && (this.cookieJar = void 0);
   }
   get name() {
     return "polling";
@@ -4155,7 +4156,7 @@ class Ul extends ds {
    * @private
    */
   request(e = {}) {
-    return Object.assign(e, { xd: this.xd, cookieJar: this.cookieJar }, this.opts), new qe(this.uri(), e);
+    return Object.assign(e, { xd: this.xd, cookieJar: this.cookieJar }, this.opts), new Ue(this.uri(), e);
   }
   /**
    * Sends data.
@@ -4185,7 +4186,7 @@ class Ul extends ds {
     }), this.pollXhr = e;
   }
 }
-class qe extends ce {
+class Ue extends ce {
   /**
    * Request constructor
    *
@@ -4236,7 +4237,7 @@ class qe extends ce {
       }, 0);
       return;
     }
-    typeof document < "u" && (this.index = qe.requestsCount++, qe.requests[this.index] = this);
+    typeof document < "u" && (this.index = Ue.requestsCount++, Ue.requests[this.index] = this);
   }
   /**
    * Called upon error.
@@ -4258,7 +4259,7 @@ class qe extends ce {
           this.xhr.abort();
         } catch {
         }
-      typeof document < "u" && delete qe.requests[this.index], this.xhr = null;
+      typeof document < "u" && delete Ue.requests[this.index], this.xhr = null;
     }
   }
   /**
@@ -4279,8 +4280,8 @@ class qe extends ce {
     this.cleanup();
   }
 }
-qe.requestsCount = 0;
-qe.requests = {};
+Ue.requestsCount = 0;
+Ue.requests = {};
 if (typeof document < "u") {
   if (typeof attachEvent == "function")
     attachEvent("onunload", hi);
@@ -4290,8 +4291,8 @@ if (typeof document < "u") {
   }
 }
 function hi() {
-  for (let t in qe.requests)
-    qe.requests.hasOwnProperty(t) && qe.requests[t].abort();
+  for (let t in Ue.requests)
+    Ue.requests.hasOwnProperty(t) && Ue.requests[t].abort();
 }
 const ps = typeof Promise == "function" && typeof Promise.resolve == "function" ? (e) => Promise.resolve().then(e) : (e, r) => r(e, 0), Fr = Oe.WebSocket || Oe.MozWebSocket, fi = !0, Hl = "arraybuffer", di = typeof navigator < "u" && typeof navigator.product == "string" && navigator.product.toLowerCase() === "reactnative";
 class Vl extends ds {
@@ -4414,7 +4415,7 @@ class Ql extends ds {
 const zl = {
   websocket: Vl,
   webtransport: Ql,
-  polling: Ul
+  polling: ql
 }, Wl = /^(?:(?![^:@\/?#]+:[^:@\/]*@)(http|https|ws|wss):\/\/)?((?:(([^:@\/?#]*)(?::([^:@\/?#]*))?)?@)?((?:[a-f0-9]{0,4}:){2,7}[a-f0-9]{0,4}|[^:\/?#]*)(?::(\d*))?)(((\/(?:[^?#](?![^?#\/]*\.[^?#\/.]+(?:[?#]|$)))*\/?)?([^?#\/]*))(?:\?([^#]*))?(?:#(.*))?)/, Yl = [
   "source",
   "protocol",
@@ -5907,7 +5908,7 @@ function fu(t) {
     []
   );
 }
-const na = Ti({}), kn = "http://localhost:8080", du = ({
+const na = Ti({}), du = ({
   children: t,
   channelId: e,
   onEndBot: r,
@@ -5921,7 +5922,7 @@ const na = Ti({}), kn = "http://localhost:8080", du = ({
   isForManager: h,
   adminId: p
 }) => {
-  const [d, y] = _t(!1), [v, _] = _t(h ? void 0 : l), m = qo(), k = Vr(() => new URLSearchParams(window.location.search), []), M = Vr(() => a || Ee(), [a]), P = Vr(() => e || k.get("channelId") || "", [e, k]), U = Ae(Yr(kn, {
+  const [d, y] = _t(!1), [v, _] = _t(h ? void 0 : l), m = Uo(), k = Vr(() => new URLSearchParams(window.location.search), []), M = Vr(() => a || Ee(), [a]), P = Vr(() => e || k.get("channelId") || "", [e, k]), q = Ae(Yr(Rn, {
     autoConnect: !1,
     transports: ["websocket"],
     query: {
@@ -5943,7 +5944,7 @@ const na = Ti({}), kn = "http://localhost:8080", du = ({
           message: "I want to know more about your product",
           userId: Ee(),
           createdAt: (/* @__PURE__ */ new Date()).toISOString()
-        }] : (await (await fetch(`${kn}/api/conversation-live-chat/${a || Ee()}/${P}`)).json()).data;
+        }] : (await (await fetch(`${URL}/api/conversation-live-chat/${a || Ee()}/${P}`)).json()).data;
       } catch {
         return [];
       }
@@ -5955,7 +5956,7 @@ const na = Ti({}), kn = "http://localhost:8080", du = ({
     queryKey: ["custom-style", P, a || Ee()],
     queryFn: async () => {
       try {
-        return (await (await fetch(`${kn}/api/custom-chatbox/${P}`)).json()).data;
+        return (await (await fetch(`${Rn}/api/custom-chatbox/${P}`)).json()).data;
       } catch {
         return;
       }
@@ -5977,7 +5978,7 @@ const na = Ti({}), kn = "http://localhost:8080", du = ({
       createdAt: (/* @__PURE__ */ new Date()).toISOString(),
       isTest: n
     };
-    U.current.emit(er.MESSAGE, {
+    q.current.emit(er.MESSAGE, {
       message: b,
       address: w,
       isTest: n,
@@ -5988,7 +5989,7 @@ const na = Ti({}), kn = "http://localhost:8080", du = ({
       type: "TOGGLE_CHAT"
     }, "*"), s == null || s();
   }, [s]), X = Hr(() => {
-    f || (U.current.emit(er.MESSAGE, {
+    f || (q.current.emit(er.MESSAGE, {
       type: "event",
       typeName: "endConversation",
       address: Gs(P, a),
@@ -5997,11 +5998,11 @@ const na = Ti({}), kn = "http://localhost:8080", du = ({
     }), y(!1), m.setQueryData(["messages", P, a || Ee()], () => []));
   }, [P, f, n, m, a]);
   return fu(() => {
-    U.current.disconnect();
+    q.current.disconnect();
   }), Ye(() => {
     if (f)
       return;
-    const D = U.current;
+    const D = q.current;
     return D.connect(), D.on(er.MESSAGE, (g) => {
       var A;
       ((A = g.template) == null ? void 0 : A.type) === "list-button" ? y(!0) : y(!1), m.setQueryData(["messages", P, a || Ee()], (E) => [...E, g].filter((b) => b.userId !== "typing"));
@@ -6021,7 +6022,7 @@ const na = Ti({}), kn = "http://localhost:8080", du = ({
   }, [ne, h]), Ye(() => {
     l && !h && _(l);
   }, [l, h]), /* @__PURE__ */ R.jsx(na.Provider, { value: {
-    socket: U.current,
+    socket: q.current,
     messages: $,
     channelId: P,
     onEndBot: r,
@@ -6314,12 +6315,12 @@ function Qe(t) {
   return ht(t) || Tu.has(t) || Au.test(t);
 }
 function Xe(t) {
-  return Gt(t, "length", Uu);
+  return Gt(t, "length", qu);
 }
 function ht(t) {
   return !!t && !Number.isNaN(Number(t));
 }
-function qr(t) {
+function Ur(t) {
   return Gt(t, "number", ht);
 }
 function nr(t) {
@@ -6328,7 +6329,7 @@ function nr(t) {
 function Nu(t) {
   return t.endsWith("%") && ht(t.slice(0, -1));
 }
-function q(t) {
+function U(t) {
   return ca.test(t);
 }
 function Je(t) {
@@ -6345,7 +6346,7 @@ const Iu = /* @__PURE__ */ new Set(["image", "url"]);
 function Fu(t) {
   return Gt(t, Iu, Vu);
 }
-function qu(t) {
+function Uu(t) {
   return Gt(t, "", Hu);
 }
 function sr() {
@@ -6355,7 +6356,7 @@ function Gt(t, e, r) {
   const n = ca.exec(t);
   return n ? n[1] ? typeof e == "string" ? n[1] === e : e.has(n[1]) : r(n[2]) : !1;
 }
-function Uu(t) {
+function qu(t) {
   return Pu.test(t) && !$u.test(t);
 }
 function la() {
@@ -6368,17 +6369,17 @@ function Vu(t) {
   return Lu.test(t);
 }
 function Qu() {
-  const t = re("colors"), e = re("spacing"), r = re("blur"), n = re("brightness"), s = re("borderColor"), i = re("borderRadius"), o = re("borderSpacing"), a = re("borderWidth"), l = re("contrast"), f = re("grayscale"), h = re("hueRotate"), p = re("invert"), d = re("gap"), y = re("gradientColorStops"), v = re("gradientColorStopPositions"), _ = re("inset"), m = re("margin"), k = re("opacity"), M = re("padding"), P = re("saturate"), U = re("scale"), $ = re("sepia"), Y = re("skew"), ne = re("space"), B = re("translate"), G = () => ["auto", "contain", "none"], X = () => ["auto", "hidden", "clip", "visible", "scroll"], D = () => ["auto", q, e], g = () => [q, e], A = () => ["", Qe, Xe], E = () => ["auto", ht, q], b = () => ["bottom", "center", "left", "left-bottom", "left-top", "right", "right-bottom", "right-top", "top"], w = () => ["solid", "dashed", "dotted", "double", "none"], C = () => ["normal", "multiply", "screen", "overlay", "darken", "lighten", "color-dodge", "color-burn", "hard-light", "soft-light", "difference", "exclusion", "hue", "saturation", "color", "luminosity", "plus-lighter"], S = () => ["start", "end", "center", "between", "around", "evenly", "stretch"], N = () => ["", "0", q], j = () => ["auto", "avoid", "all", "avoid-page", "page", "left", "right", "column"], V = () => [ht, qr], J = () => [ht, q];
+  const t = re("colors"), e = re("spacing"), r = re("blur"), n = re("brightness"), s = re("borderColor"), i = re("borderRadius"), o = re("borderSpacing"), a = re("borderWidth"), l = re("contrast"), f = re("grayscale"), h = re("hueRotate"), p = re("invert"), d = re("gap"), y = re("gradientColorStops"), v = re("gradientColorStopPositions"), _ = re("inset"), m = re("margin"), k = re("opacity"), M = re("padding"), P = re("saturate"), q = re("scale"), $ = re("sepia"), Y = re("skew"), ne = re("space"), B = re("translate"), G = () => ["auto", "contain", "none"], X = () => ["auto", "hidden", "clip", "visible", "scroll"], D = () => ["auto", U, e], g = () => [U, e], A = () => ["", Qe, Xe], E = () => ["auto", ht, U], b = () => ["bottom", "center", "left", "left-bottom", "left-top", "right", "right-bottom", "right-top", "top"], w = () => ["solid", "dashed", "dotted", "double", "none"], C = () => ["normal", "multiply", "screen", "overlay", "darken", "lighten", "color-dodge", "color-burn", "hard-light", "soft-light", "difference", "exclusion", "hue", "saturation", "color", "luminosity", "plus-lighter"], S = () => ["start", "end", "center", "between", "around", "evenly", "stretch"], N = () => ["", "0", U], j = () => ["auto", "avoid", "all", "avoid-page", "page", "left", "right", "column"], V = () => [ht, Ur], J = () => [ht, U];
   return {
     cacheSize: 500,
     separator: ":",
     theme: {
       colors: [sr],
       spacing: [Qe, Xe],
-      blur: ["none", "", Je, q],
+      blur: ["none", "", Je, U],
       brightness: V(),
       borderColor: [t],
-      borderRadius: ["none", "", "full", Je, q],
+      borderRadius: ["none", "", "full", Je, U],
       borderSpacing: g(),
       borderWidth: A(),
       contrast: V(),
@@ -6406,7 +6407,7 @@ function Qu() {
        * @see https://tailwindcss.com/docs/aspect-ratio
        */
       aspect: [{
-        aspect: ["auto", "square", "video", q]
+        aspect: ["auto", "square", "video", U]
       }],
       /**
        * Container
@@ -6491,7 +6492,7 @@ function Qu() {
        * @see https://tailwindcss.com/docs/object-position
        */
       "object-position": [{
-        object: [...b(), q]
+        object: [...b(), U]
       }],
       /**
        * Overflow
@@ -6613,7 +6614,7 @@ function Qu() {
        * @see https://tailwindcss.com/docs/z-index
        */
       z: [{
-        z: ["auto", nr, q]
+        z: ["auto", nr, U]
       }],
       // Flexbox and Grid
       /**
@@ -6642,7 +6643,7 @@ function Qu() {
        * @see https://tailwindcss.com/docs/flex
        */
       flex: [{
-        flex: ["1", "auto", "initial", "none", q]
+        flex: ["1", "auto", "initial", "none", U]
       }],
       /**
        * Flex Grow
@@ -6663,7 +6664,7 @@ function Qu() {
        * @see https://tailwindcss.com/docs/order
        */
       order: [{
-        order: ["first", "last", "none", nr, q]
+        order: ["first", "last", "none", nr, U]
       }],
       /**
        * Grid Template Columns
@@ -6678,8 +6679,8 @@ function Qu() {
        */
       "col-start-end": [{
         col: ["auto", {
-          span: ["full", nr, q]
-        }, q]
+          span: ["full", nr, U]
+        }, U]
       }],
       /**
        * Grid Column Start
@@ -6708,8 +6709,8 @@ function Qu() {
        */
       "row-start-end": [{
         row: ["auto", {
-          span: [nr, q]
-        }, q]
+          span: [nr, U]
+        }, U]
       }],
       /**
        * Grid Row Start
@@ -6737,14 +6738,14 @@ function Qu() {
        * @see https://tailwindcss.com/docs/grid-auto-columns
        */
       "auto-cols": [{
-        "auto-cols": ["auto", "min", "max", "fr", q]
+        "auto-cols": ["auto", "min", "max", "fr", U]
       }],
       /**
        * Grid Auto Rows
        * @see https://tailwindcss.com/docs/grid-auto-rows
        */
       "auto-rows": [{
-        "auto-rows": ["auto", "min", "max", "fr", q]
+        "auto-rows": ["auto", "min", "max", "fr", U]
       }],
       /**
        * Gap
@@ -6987,21 +6988,21 @@ function Qu() {
        * @see https://tailwindcss.com/docs/width
        */
       w: [{
-        w: ["auto", "min", "max", "fit", "svw", "lvw", "dvw", q, e]
+        w: ["auto", "min", "max", "fit", "svw", "lvw", "dvw", U, e]
       }],
       /**
        * Min-Width
        * @see https://tailwindcss.com/docs/min-width
        */
       "min-w": [{
-        "min-w": [q, e, "min", "max", "fit"]
+        "min-w": [U, e, "min", "max", "fit"]
       }],
       /**
        * Max-Width
        * @see https://tailwindcss.com/docs/max-width
        */
       "max-w": [{
-        "max-w": [q, e, "none", "full", "min", "max", "fit", "prose", {
+        "max-w": [U, e, "none", "full", "min", "max", "fit", "prose", {
           screen: [Je]
         }, Je]
       }],
@@ -7010,28 +7011,28 @@ function Qu() {
        * @see https://tailwindcss.com/docs/height
        */
       h: [{
-        h: [q, e, "auto", "min", "max", "fit", "svh", "lvh", "dvh"]
+        h: [U, e, "auto", "min", "max", "fit", "svh", "lvh", "dvh"]
       }],
       /**
        * Min-Height
        * @see https://tailwindcss.com/docs/min-height
        */
       "min-h": [{
-        "min-h": [q, e, "min", "max", "fit", "svh", "lvh", "dvh"]
+        "min-h": [U, e, "min", "max", "fit", "svh", "lvh", "dvh"]
       }],
       /**
        * Max-Height
        * @see https://tailwindcss.com/docs/max-height
        */
       "max-h": [{
-        "max-h": [q, e, "min", "max", "fit", "svh", "lvh", "dvh"]
+        "max-h": [U, e, "min", "max", "fit", "svh", "lvh", "dvh"]
       }],
       /**
        * Size
        * @see https://tailwindcss.com/docs/size
        */
       size: [{
-        size: [q, e, "auto", "min", "max", "fit"]
+        size: [U, e, "auto", "min", "max", "fit"]
       }],
       // Typography
       /**
@@ -7056,7 +7057,7 @@ function Qu() {
        * @see https://tailwindcss.com/docs/font-weight
        */
       "font-weight": [{
-        font: ["thin", "extralight", "light", "normal", "medium", "semibold", "bold", "extrabold", "black", qr]
+        font: ["thin", "extralight", "light", "normal", "medium", "semibold", "bold", "extrabold", "black", Ur]
       }],
       /**
        * Font Family
@@ -7100,35 +7101,35 @@ function Qu() {
        * @see https://tailwindcss.com/docs/letter-spacing
        */
       tracking: [{
-        tracking: ["tighter", "tight", "normal", "wide", "wider", "widest", q]
+        tracking: ["tighter", "tight", "normal", "wide", "wider", "widest", U]
       }],
       /**
        * Line Clamp
        * @see https://tailwindcss.com/docs/line-clamp
        */
       "line-clamp": [{
-        "line-clamp": ["none", ht, qr]
+        "line-clamp": ["none", ht, Ur]
       }],
       /**
        * Line Height
        * @see https://tailwindcss.com/docs/line-height
        */
       leading: [{
-        leading: ["none", "tight", "snug", "normal", "relaxed", "loose", Qe, q]
+        leading: ["none", "tight", "snug", "normal", "relaxed", "loose", Qe, U]
       }],
       /**
        * List Style Image
        * @see https://tailwindcss.com/docs/list-style-image
        */
       "list-image": [{
-        "list-image": ["none", q]
+        "list-image": ["none", U]
       }],
       /**
        * List Style Type
        * @see https://tailwindcss.com/docs/list-style-type
        */
       "list-style-type": [{
-        list: ["none", "disc", "decimal", q]
+        list: ["none", "disc", "decimal", U]
       }],
       /**
        * List Style Position
@@ -7197,7 +7198,7 @@ function Qu() {
        * @see https://tailwindcss.com/docs/text-underline-offset
        */
       "underline-offset": [{
-        "underline-offset": ["auto", Qe, q]
+        "underline-offset": ["auto", Qe, U]
       }],
       /**
        * Text Decoration Color
@@ -7235,7 +7236,7 @@ function Qu() {
        * @see https://tailwindcss.com/docs/vertical-align
        */
       "vertical-align": [{
-        align: ["baseline", "top", "middle", "bottom", "text-top", "text-bottom", "sub", "super", q]
+        align: ["baseline", "top", "middle", "bottom", "text-top", "text-bottom", "sub", "super", U]
       }],
       /**
        * Whitespace
@@ -7263,7 +7264,7 @@ function Qu() {
        * @see https://tailwindcss.com/docs/content
        */
       content: [{
-        content: ["none", q]
+        content: ["none", U]
       }],
       // Backgrounds
       /**
@@ -7665,7 +7666,7 @@ function Qu() {
        * @see https://tailwindcss.com/docs/outline-offset
        */
       "outline-offset": [{
-        "outline-offset": [Qe, q]
+        "outline-offset": [Qe, U]
       }],
       /**
        * Outline Width
@@ -7727,7 +7728,7 @@ function Qu() {
        * @see https://tailwindcss.com/docs/box-shadow
        */
       shadow: [{
-        shadow: ["", "inner", "none", Je, qu]
+        shadow: ["", "inner", "none", Je, Uu]
       }],
       /**
        * Box Shadow Color
@@ -7792,7 +7793,7 @@ function Qu() {
        * @see https://tailwindcss.com/docs/drop-shadow
        */
       "drop-shadow": [{
-        "drop-shadow": ["", "none", Je, q]
+        "drop-shadow": ["", "none", Je, U]
       }],
       /**
        * Grayscale
@@ -7949,7 +7950,7 @@ function Qu() {
        * @see https://tailwindcss.com/docs/transition-property
        */
       transition: [{
-        transition: ["none", "all", "", "colors", "opacity", "shadow", "transform", q]
+        transition: ["none", "all", "", "colors", "opacity", "shadow", "transform", U]
       }],
       /**
        * Transition Duration
@@ -7963,7 +7964,7 @@ function Qu() {
        * @see https://tailwindcss.com/docs/transition-timing-function
        */
       ease: [{
-        ease: ["linear", "in", "out", "in-out", q]
+        ease: ["linear", "in", "out", "in-out", U]
       }],
       /**
        * Transition Delay
@@ -7977,7 +7978,7 @@ function Qu() {
        * @see https://tailwindcss.com/docs/animation
        */
       animate: [{
-        animate: ["none", "spin", "ping", "pulse", "bounce", q]
+        animate: ["none", "spin", "ping", "pulse", "bounce", U]
       }],
       // Transforms
       /**
@@ -7992,28 +7993,28 @@ function Qu() {
        * @see https://tailwindcss.com/docs/scale
        */
       scale: [{
-        scale: [U]
+        scale: [q]
       }],
       /**
        * Scale X
        * @see https://tailwindcss.com/docs/scale
        */
       "scale-x": [{
-        "scale-x": [U]
+        "scale-x": [q]
       }],
       /**
        * Scale Y
        * @see https://tailwindcss.com/docs/scale
        */
       "scale-y": [{
-        "scale-y": [U]
+        "scale-y": [q]
       }],
       /**
        * Rotate
        * @see https://tailwindcss.com/docs/rotate
        */
       rotate: [{
-        rotate: [nr, q]
+        rotate: [nr, U]
       }],
       /**
        * Translate X
@@ -8048,7 +8049,7 @@ function Qu() {
        * @see https://tailwindcss.com/docs/transform-origin
        */
       "transform-origin": [{
-        origin: ["center", "top", "top-right", "right", "bottom-right", "bottom", "bottom-left", "left", "top-left", q]
+        origin: ["center", "top", "top-right", "right", "bottom-right", "bottom", "bottom-left", "left", "top-left", U]
       }],
       // Interactivity
       /**
@@ -8070,7 +8071,7 @@ function Qu() {
        * @see https://tailwindcss.com/docs/cursor
        */
       cursor: [{
-        cursor: ["auto", "default", "pointer", "wait", "text", "move", "help", "not-allowed", "none", "context-menu", "progress", "cell", "crosshair", "vertical-text", "alias", "copy", "no-drop", "grab", "grabbing", "all-scroll", "col-resize", "row-resize", "n-resize", "e-resize", "s-resize", "w-resize", "ne-resize", "nw-resize", "se-resize", "sw-resize", "ew-resize", "ns-resize", "nesw-resize", "nwse-resize", "zoom-in", "zoom-out", q]
+        cursor: ["auto", "default", "pointer", "wait", "text", "move", "help", "not-allowed", "none", "context-menu", "progress", "cell", "crosshair", "vertical-text", "alias", "copy", "no-drop", "grab", "grabbing", "all-scroll", "col-resize", "row-resize", "n-resize", "e-resize", "s-resize", "w-resize", "ne-resize", "nw-resize", "se-resize", "sw-resize", "ew-resize", "ns-resize", "nesw-resize", "nwse-resize", "zoom-in", "zoom-out", U]
       }],
       /**
        * Caret Color
@@ -8292,7 +8293,7 @@ function Qu() {
        * @see https://tailwindcss.com/docs/will-change
        */
       "will-change": [{
-        "will-change": ["auto", "scroll", "contents", "transform", q]
+        "will-change": ["auto", "scroll", "contents", "transform", U]
       }],
       // SVG
       /**
@@ -8307,7 +8308,7 @@ function Qu() {
        * @see https://tailwindcss.com/docs/stroke-width
        */
       "stroke-w": [{
-        stroke: [Qe, Xe, qr]
+        stroke: [Qe, Xe, Ur]
       }],
       /**
        * Stroke
@@ -8398,7 +8399,7 @@ var ua = { exports: {} };
     } }, P = function(E, b, w) {
       var C = String(E);
       return !C || C.length >= b ? E : "" + Array(b + 1 - C.length).join(w) + E;
-    }, U = { s: P, z: function(E) {
+    }, q = { s: P, z: function(E) {
       var b = -E.utcOffset(), w = Math.abs(b), C = Math.floor(w / 60), S = w % 60;
       return (b <= 0 ? "+" : "-") + P(C, 2, "0") + ":" + P(S, 2, "0");
     }, m: function E(b, w) {
@@ -8436,7 +8437,7 @@ var ua = { exports: {} };
         return E.clone();
       var w = typeof b == "object" ? b : {};
       return w.date = E, w.args = arguments, new g(w);
-    }, D = U;
+    }, D = q;
     D.l = G, D.i = B, D.w = function(E, b) {
       return X(E, { locale: b.$L, utc: b.$u, x: b.$x, $offset: b.$offset });
     };
@@ -8678,7 +8679,7 @@ var ua = { exports: {} };
   });
 })(ua);
 var Wu = ua.exports;
-const Ur = /* @__PURE__ */ Ba(Wu);
+const qr = /* @__PURE__ */ Ba(Wu);
 /**
  * @license lucide-react v0.364.0 - ISC
  *
@@ -9054,9 +9055,9 @@ const lh = ({
     return (s == null ? void 0 : s.userId) === "typing" ? /* @__PURE__ */ R.jsx(dh, {}) : ((o = s == null ? void 0 : s.template) == null ? void 0 : o.type) === "list-button" ? /* @__PURE__ */ R.jsx(lh, { message: s }, `${s.createdAt}+${i}`) : ((a = s == null ? void 0 : s.template) == null ? void 0 : a.type) === "list-card" ? /* @__PURE__ */ R.jsx(fh, { message: s }, `${s.createdAt}+${i}`) : /* @__PURE__ */ R.jsx(fn, { message: s }, `${s.createdAt}+${i}`);
   };
   return /* @__PURE__ */ R.jsx("div", { className: "p-2 flex-1 pr-3 overflow-y-auto", children: r ? /* @__PURE__ */ R.jsx("div", { children: /* @__PURE__ */ R.jsx(Gu, { className: "animate-spin w-4 h-4" }) }) : /* @__PURE__ */ R.jsxs("div", { className: "flex flex-col gap-1", children: [
-    e.length > 0 && /* @__PURE__ */ R.jsx("div", { className: "text-center text-xs text-neutral-500 py-2", children: Ur(e[0].createdAt).format("DD/MM/YYYY HH:mm") }),
+    e.length > 0 && /* @__PURE__ */ R.jsx("div", { className: "text-center text-xs text-neutral-500 py-2", children: qr(e[0].createdAt).format("DD/MM/YYYY HH:mm") }),
     e.map((s, i) => /* @__PURE__ */ R.jsxs(Et, { children: [
-      i > 0 && Ur(s.createdAt).diff(Ur(e[i - 1].createdAt), "minutes") > 10 && /* @__PURE__ */ R.jsx("div", { className: "text-center text-xs text-neutral-500 py-2", children: Ur(s.createdAt).format("DD/MM/YYYY HH:mm") }),
+      i > 0 && qr(s.createdAt).diff(qr(e[i - 1].createdAt), "minutes") > 10 && /* @__PURE__ */ R.jsx("div", { className: "text-center text-xs text-neutral-500 py-2", children: qr(s.createdAt).format("DD/MM/YYYY HH:mm") }),
       n(s, i)
     ] }, i)),
     /* @__PURE__ */ R.jsx("div", { ref: t })
