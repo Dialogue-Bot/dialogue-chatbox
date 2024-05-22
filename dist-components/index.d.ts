@@ -34,6 +34,7 @@ export declare type Props = {
     isForPreview?: boolean;
     isForManager?: boolean;
     adminId?: string;
+    API_URL?: string;
 };
 
 export { }
