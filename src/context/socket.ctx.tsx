@@ -162,6 +162,8 @@ export const SocketProvider = ({
       }
     },
     initialData: [],
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: false,
   })
 
   const { data: custom } = useQuery({
