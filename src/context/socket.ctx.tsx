@@ -126,6 +126,12 @@ export const SocketProvider = ({
     }),
   )
 
+  console.log(
+    `${props.API_URL || API_URL}/api/conversation-live-chat/${
+      userId || genId()
+    }/${_channelId}`,
+  )
+
   const { data: messages, isLoading } = useQuery({
     queryKey: ['messages', _channelId, userId || genId()],
     queryFn: async () => {
@@ -145,12 +151,6 @@ export const SocketProvider = ({
             },
           ]
         }
-
-        console.log(
-          `${props.API_URL || API_URL}/api/conversation-live-chat/${
-            userId || genId()
-          }/${_channelId}`,
-        )
 
         const res = await fetch(
           `${props.API_URL || API_URL}/api/conversation-live-chat/${
