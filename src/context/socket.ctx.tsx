@@ -146,6 +146,12 @@ export const SocketProvider = ({
           ]
         }
 
+        console.log(
+          `${props.API_URL || API_URL}/api/conversation-live-chat/${
+            userId || genId()
+          }/${_channelId}`,
+        )
+
         const res = await fetch(
           `${props.API_URL || API_URL}/api/conversation-live-chat/${
             userId || genId()
