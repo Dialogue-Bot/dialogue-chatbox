@@ -21,12 +21,12 @@ const Header = () => {
             <img
               src={customStyles?.logoUrl}
               alt='logo'
-              className='w-10 h-10 rounded-full overflow-hidden object-cover'
+              className='w-8 h-8 rounded-full overflow-hidden object-cover'
             />
           ) : (
             <svg
-              width='40'
-              height='40'
+              width='32'
+              height='32'
               className='text-neutral-700 fill-neutral-700 bg-neutral-700 rounded-full'
             >
               <text
