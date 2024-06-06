@@ -200,6 +200,8 @@ export const SocketProvider = ({
 
   const handleSendMessage: TSocketCtx['handleSendMessage'] = useCallback(
     ({ message, cb, extraData, type }) => {
+      if (isForManager) return
+
       const trimmedMessage = message.trim()
       if (trimmedMessage.length === 0) return
 
@@ -229,7 +231,7 @@ export const SocketProvider = ({
 
       cb && cb(newMessage)
     },
-    [_channelId, adminId, isTest, queryClient, userId],
+    [_channelId, adminId, isForManager, isTest, queryClient, userId],
   )
 
   const handleClose = useCallback(() => {
