@@ -11,7 +11,7 @@ import {
   useState,
 } from 'react'
 import { Socket, io } from 'socket.io-client'
-import { useUnmount } from 'usehooks-ts'
+import { useLocalStorage, useUnmount } from 'usehooks-ts'
 
 export type TSocketCtx = {
   socket: Socket
@@ -49,6 +49,8 @@ export type TSocketCtx = {
   handleTyping?: () => void
   adminId?: string
   isForManager?: boolean
+  disabledButtons?: string[]
+  handleClickButton?: (msgId: string) => void
 }
 
 export const SocketCtx = createContext<TSocketCtx>({} as TSocketCtx)
@@ -101,6 +103,10 @@ export const SocketProvider = ({
   const [disableInput, setDisableInput] = useState<boolean>(false)
   const [customStyles, setCustomStyles] = useState(
     isForManager ? undefined : _customStyles,
+  )
+  const [disabledButtons, setDisabledButtons] = useLocalStorage<string[]>(
+    'disabled-buttons',
+    [],
   )
 
   const queryClient = useQueryClient()
@@ -241,6 +247,8 @@ export const SocketProvider = ({
   const handleReload = useCallback(() => {
     if (isForPreview) return
 
+    setDisabledButtons([])
+
     socketRef.current.emit(EVENTS_SOCKET.MESSAGE, {
       type: 'event',
       typeName: 'endConversation',
@@ -256,7 +264,21 @@ export const SocketProvider = ({
         return []
       },
     )
-  }, [_channelId, isForPreview, isTest, queryClient, userId])
+  }, [
+    _channelId,
+    isForPreview,
+    isTest,
+    queryClient,
+    setDisabledButtons,
+    userId,
+  ])
+
+  const handleClickButton = useCallback(
+    (msgId: string) => {
+      setDisabledButtons((prev) => [...prev, msgId])
+    },
+    [setDisabledButtons],
+  )
 
   useUnmount(() => {
     socketRef.current.disconnect()
@@ -345,6 +367,8 @@ export const SocketProvider = ({
         customStyles,
         adminId,
         isForManager,
+        disabledButtons,
+        handleClickButton,
       }}
     >
       {children}

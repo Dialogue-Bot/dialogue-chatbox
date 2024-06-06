@@ -9,7 +9,12 @@ type Props = {
 }
 
 const ButtonsMessage = ({ message }: Props) => {
-  const { handleSendMessage, customStyles } = useSocket()
+  const {
+    handleSendMessage,
+    customStyles,
+    handleClickButton,
+    disabledButtons,
+  } = useSocket()
   const hsl = customStyles?.color ? hexToHSL(customStyles.color) : null
   return (
     <div className='space-y-2' data-buttons={true}>
@@ -18,6 +23,12 @@ const ButtonsMessage = ({ message }: Props) => {
         {message.template.data.map((button) => {
           return (
             <Button
+              disabled={
+                disabledButtons?.find((item) => item === message.createdAt)
+                  ? true
+                  : false
+              }
+              key={`${button.title}-${button.type}`}
               variant='message'
               size='sm'
               onClick={() => {
@@ -35,6 +46,8 @@ const ButtonsMessage = ({ message }: Props) => {
 
                   openInNewTab(button.url)
                 }
+
+                handleClickButton?.(message.createdAt)
               }}
               style={
                 {

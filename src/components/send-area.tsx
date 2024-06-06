@@ -37,6 +37,7 @@ const SendArea = () => {
         style={
           {
             '--primary': hsl ? `${hsl.h} ${hsl.s}% ${hsl.l}%` : undefined,
+            '--ring': hsl ? `${hsl.h} ${hsl.s}% ${hsl.l}%` : undefined,
           } as React.CSSProperties
         }
       />

@@ -19,6 +19,9 @@ const ChatBox = ({ className }: { className?: string }) => {
       className={cn(
         'select-none w-full h-screen flex flex-col shadow chatbox',
         className,
+        {
+          'pointer-events-none': isForManager,
+        },
       )}
       style={{
         width: customStyles?.windowSize.width,
