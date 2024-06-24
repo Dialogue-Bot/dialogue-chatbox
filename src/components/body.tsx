@@ -39,6 +39,18 @@ const Body = () => {
       return <CardsMessage key={`${msg.createdAt}+${index}`} message={msg} />
     }
 
+    if (msg.type === 'image') {
+      return (
+        <Message message={msg}>
+          <img
+            src={msg.url}
+            alt=''
+            className='rounded-md object-cover h-full w-full'
+          />
+        </Message>
+      )
+    }
+
     return <Message key={`${msg.createdAt}+${index}`} message={msg} />
   }
 

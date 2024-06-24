@@ -27,6 +27,8 @@ export type TMessage<T = any> = {
   createdAt: string
   isTest?: boolean
   adminId?: string
+  type?: 'image' | 'text'
+  url?: string
 }
 
 export type TButtonsMessage = TMessage<TButton>

@@ -50,7 +50,7 @@ const Message = ({ message, children }: Props) => {
               backgroundColor: isLeft ? undefined : customStyles?.color,
             }}
           >
-            {message.message}
+            {message.message.trim().length ? message.message : null}
             {children}
           </div>
         </div>
