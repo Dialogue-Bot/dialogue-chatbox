@@ -40,7 +40,7 @@ const Message = ({ message, children }: Props) => {
           </span>
           <div
             className={cn(
-              'bg-primary rounded-md text-white flex items-center justify-end w-max p-2 max-w-72 text-wrap ',
+              'bg-primary rounded-md text-white flex items-center justify-end w-max p-2 max-w-72 text-wrap whitespace-pre-line',
               {
                 'bg-muted text-neutral-900 justify-start': isLeft,
               },

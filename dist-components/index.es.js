@@ -8898,7 +8898,7 @@ const sh = dn("X", [
       "items-start": i
     }), v2: pt("flex items-center text-xs text-muted-foreground", {
       "justify-end": !i
-    }), v3: s ? t.isBot ? "From bot" : "From user" : null, v4: pt("bg-primary rounded-md text-white flex items-center justify-end w-max p-2 max-w-72 text-wrap ", {
+    }), v3: s ? t.isBot ? "From bot" : "From user" : null, v4: pt("bg-primary rounded-md text-white flex items-center justify-end w-max p-2 max-w-72 text-wrap whitespace-pre-line", {
       "bg-muted text-neutral-900 justify-start": i
     }), v5: {
       wordBreak: "break-word",
