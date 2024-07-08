@@ -9608,7 +9608,7 @@ const od = (t) => {
     href: r,
     ...n
   } = t;
-  return /* @__PURE__ */ A.jsx("a", { href: r, ...n, className: "underline", children: e });
+  return /* @__PURE__ */ A.jsx("a", { href: r, ...n, target: "_blank", className: "underline", children: e });
 }, Br = ({
   message: t,
   children: e

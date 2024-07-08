@@ -10,7 +10,7 @@ type Props = {
 const renderLink = ({ attributes, content }: any) => {
   const { href, ...props } = attributes
   return (
-    <a href={href} {...props} className='underline'>
+    <a href={href} {...props} target='_blank' className='underline'>
       {content}
     </a>
   )
