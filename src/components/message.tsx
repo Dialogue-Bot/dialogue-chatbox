@@ -1,10 +1,19 @@
 import { useSocket } from '@/hooks/useSocket'
 import { cn } from '@/lib/utils'
 import { TMessage } from '@/types/chatbox'
-
+import Linkify from 'linkify-react'
 type Props = {
   message: TMessage
   children?: React.ReactNode
+}
+
+const renderLink = ({ attributes, content }: any) => {
+  const { href, ...props } = attributes
+  return (
+    <a href={href} {...props} className='underline'>
+      {content}
+    </a>
+  )
 }
 
 /**
@@ -31,14 +40,23 @@ const Message = ({ message, children }: Props) => {
             'items-start': isLeft,
           })}
         >
-          <span
-            className={cn('flex items-center text-xs text-muted-foreground', {
-              'justify-end': !isLeft,
-            })}
-          >
-            {isForManager ? (message.isBot ? 'From bot' : 'From user') : null}
-          </span>
-          <div
+          {isForManager && (
+            <span
+              className={cn('flex items-center text-xs text-muted-foreground', {
+                'justify-end': !isLeft,
+              })}
+            >
+              {isForManager ? (message.isBot ? 'From bot' : 'From user') : null}
+            </span>
+          )}
+          <Linkify
+            as='div'
+            options={{
+              render: renderLink,
+              className: cn('underline', {
+                'text-primary': !isLeft,
+              }),
+            }}
             className={cn(
               'bg-primary rounded-md text-white flex items-center justify-end w-max p-2 max-w-72 text-wrap whitespace-pre-line',
               {
@@ -52,7 +70,7 @@ const Message = ({ message, children }: Props) => {
           >
             {message.message.trim().length ? message.message : null}
             {children}
-          </div>
+          </Linkify>
         </div>
       </div>
     </>

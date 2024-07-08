@@ -10,7 +10,7 @@ const Header = () => {
     useSocket()
   return (
     <header
-      className='flex items-center bg-primary select-none h-[3.75rem]'
+      className='flex items-center bg-primary h-[3.75rem]'
       style={{
         backgroundColor: customStyles?.color,
       }}

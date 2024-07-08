@@ -1,6 +1,7 @@
 import { useSocket } from '@/hooks/useSocket'
 import { cn } from '@/lib/utils'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { useUnmount } from 'usehooks-ts'
 import { Body, Header, SendArea } from '../components'
 import { Props, SocketProvider } from '../context/socket.ctx'
 
@@ -12,14 +13,15 @@ const queryClient = new QueryClient()
  */
 
 const ChatBox = ({ className }: { className?: string }) => {
-  const { customStyles, isForManager } = useSocket()
+  const { customStyles, isForManager, onEndBot } = useSocket()
+
+  useUnmount(() => {
+    onEndBot && onEndBot()
+  })
 
   return (
     <div
-      className={cn(
-        'select-none w-full h-screen flex flex-col shadow chatbox',
-        className,
-      )}
+      className={cn('w-full h-screen flex flex-col shadow chatbox', className)}
       style={{
         width: customStyles?.windowSize.width,
         height: customStyles?.windowSize.height,
