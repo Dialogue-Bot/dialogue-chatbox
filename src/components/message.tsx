@@ -1,6 +1,7 @@
 import { useSocket } from '@/hooks/useSocket'
 import { cn } from '@/lib/utils'
 import { TMessage } from '@/types/chatbox'
+import { isContainLink } from '@/utils'
 import Linkify from 'linkify-react'
 type Props = {
   message: TMessage
@@ -61,6 +62,7 @@ const Message = ({ message, children }: Props) => {
               'bg-primary rounded-md text-white flex items-center justify-end w-max p-2 max-w-72 text-wrap whitespace-pre-line',
               {
                 'bg-muted text-neutral-900 justify-start': isLeft,
+                block: isContainLink(message.message),
               },
             )}
             style={{

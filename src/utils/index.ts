@@ -89,3 +89,8 @@ export const hexToHSL = (hex: string) => {
     l: Math.round(l * 100),
   }
 }
+
+export const isContainLink = (text: string) => {
+  const httpUrlPattern = /https?:\/\/[^\s]+/gi
+  return httpUrlPattern.test(text)
+}
